@@ -8,6 +8,9 @@ import { firstValueFrom } from 'rxjs';
 export class InfoUsuarioService {
   constructor(private http: HttpClient) {}
 
+  /**
+   * Trae del servidor la informacion asociada del usuario.
+   */
   async cargarInfoUsuario() {
     const infoUsuario = await firstValueFrom(this.http.get('/usuario/'));
     console.log(infoUsuario);
