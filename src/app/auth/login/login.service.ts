@@ -3,6 +3,7 @@ import { BrowserStorageService } from './../../shared/services/browser-storage.s
 import { Injectable } from '@angular/core';
 import { LoginDto } from './login.dtos';
 import { Observable } from 'rxjs';
+import { environment } from './../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,15 +11,10 @@ import { Observable } from 'rxjs';
 export class LoginService {
   constructor(private browserStorage: BrowserStorageService, private http: HttpClient) {}
 
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl = environment.apiUrl;
 
   iniciarSesion(loginDto: LoginDto): Observable<string> {
-    return this.http.post(`${this.apiUrl}/auth/login`, loginDto, {
-      responseType: 'text',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    return this.http.post<string>(`${this.apiUrl}/auth/login`, loginDto);
   }
 
   guardarToken(token: string): void {
