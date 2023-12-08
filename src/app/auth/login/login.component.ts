@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { LoginService } from './login.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginDto } from './login.dtos';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { LoginDto } from './login.dtos';
   imports: [ReactiveFormsModule],
 })
 export class LoginComponent {
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
   form = new FormGroup({
     correo: new FormControl('', [Validators.required, Validators.email, Validators.minLength(5)]),
@@ -31,6 +32,7 @@ export class LoginComponent {
     this.loginService.iniciarSesion(loginDto).subscribe({
       next: (token) => {
         this.loginService.guardarToken(token);
+        this.router.navigate(['/panel-administrativo']);
       },
       error: (error) => {
         console.error(error);
