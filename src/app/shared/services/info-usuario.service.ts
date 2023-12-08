@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 
@@ -9,10 +8,8 @@ import { firstValueFrom } from 'rxjs';
 export class InfoUsuarioService {
   constructor(private http: HttpClient) {}
 
-  private apiUrl = environment.apiUrl;
-
   async cargarInfoUsuario() {
-    const infoUsuario = await firstValueFrom(this.http.get(`${this.apiUrl}/usuario/`));
+    const infoUsuario = await firstValueFrom(this.http.get('/usuario/'));
     console.log(infoUsuario);
   }
 
