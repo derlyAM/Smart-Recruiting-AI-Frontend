@@ -12,12 +12,12 @@ export class AlmacenamientoNavegadorService {
     localStorage.removeItem(key);
   }
 
-  obtenerItem(key: string): string {
+  obtenerItem(key: string): string | null {
     const item = localStorage.getItem(key);
     if (item) {
       return item;
     } else {
-      throw new Error('No existe el item');
+      return null;
     }
   }
 }

@@ -3,6 +3,9 @@ import { LoginService } from './login.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginDto } from './login.dtos';
 import { Router } from '@angular/router';
+import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
+import { TokenService } from './token.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +15,19 @@ import { Router } from '@angular/router';
   imports: [ReactiveFormsModule],
 })
 export class LoginComponent {
-  constructor(private loginService: LoginService, private router: Router) {}
+  constructor(
+    private loginService: LoginService,
+    private router: Router,
+    private infoUsuario: InfoUsuarioService,
+    private token: TokenService
+  ) {}
 
   form = new FormGroup({
     correo: new FormControl('', [Validators.required, Validators.email, Validators.minLength(5)]),
     passwd: new FormControl('', [Validators.required, Validators.minLength(5)]),
   });
 
-  iniciarSesion() {
+  async iniciarSesion() {
     if (this.form.invalid) {
       return;
     }
@@ -29,14 +37,17 @@ export class LoginComponent {
       passwd: this.form.get('passwd')?.value || '',
     };
 
-    this.loginService.iniciarSesion(loginDto).subscribe({
-      next: (token) => {
-        this.loginService.guardarToken(token);
-        this.router.navigate(['/panel-administrativo']);
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+    try {
+      const token = await firstValueFrom(this.loginService.iniciarSesion(loginDto));
+      this.accionesDeInicioDeSesion(token);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  private accionesDeInicioDeSesion(token: string): void {
+    this.token.guardarToken(token);
+    this.infoUsuario.cargarInfoUsuario();
+    this.router.navigate(['/panel-administrativo']);
   }
 }
