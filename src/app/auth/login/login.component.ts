@@ -1,24 +1,39 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from './login.service';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LoginDto } from './login.dtos';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
+  imports: [ReactiveFormsModule],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   constructor(private loginService: LoginService) {}
 
-  ngOnInit(): void {
-    this.loginService.iniciarSesion({ correo: 'xshevlan5@shareasale.com', passwd: 'pollito666' }).subscribe({
+  form = new FormGroup({
+    correo: new FormControl('', [Validators.required, Validators.email, Validators.minLength(5)]),
+    passwd: new FormControl('', [Validators.required, Validators.minLength(5)]),
+  });
+
+  iniciarSesion() {
+    if (this.form.invalid) {
+      return;
+    }
+
+    const loginDto: LoginDto = {
+      correo: this.form.get('correo')?.value || '',
+      passwd: this.form.get('passwd')?.value || '',
+    };
+
+    this.loginService.iniciarSesion(loginDto).subscribe({
       next: (token) => {
-        console.log(token);
         this.loginService.guardarToken(token);
       },
       error: (error) => {
-        console.log(error);
+        console.error(error);
       },
     });
   }

@@ -1,1 +1,8 @@
-<p>login works!</p>
+<h1>Iniciar sesión</h1>
+<form [formGroup]="form">
+  <input type="email" formControlName="correo"/>
+  <br>
+  <input type="password" formControlName="passwd"/>
+  <br>
+  <input type="button" (click)="iniciarSesion()" value="Login" />
+</form>
