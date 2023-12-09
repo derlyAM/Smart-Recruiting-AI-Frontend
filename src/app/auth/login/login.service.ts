@@ -3,20 +3,24 @@ import { Injectable } from '@angular/core';
 import { LoginDto } from './login.dtos';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { TokenService } from './token.service';
+import { AlmacenamientoNavegadorService } from '../../shared/services/almacenamiento-navegador.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LoginService {
-  constructor(private http: HttpClient, private router: Router, private tokenService: TokenService) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private navegador: AlmacenamientoNavegadorService
+  ) {}
 
   iniciarSesion(loginDto: LoginDto): Observable<string> {
     return this.http.post<string>('/auth/login', loginDto);
   }
 
   cerrarSesion(): void {
-    this.tokenService.removerToken();
+    this.navegador.limpiarAlmacenamiento();
     this.router.navigate(['/']);
   }
 }

@@ -39,4 +39,8 @@ export class AlmacenamientoNavegadorService {
     }
     return '';
   }
+
+  limpiarAlmacenamiento(): void {
+    localStorage.clear();
+  }
 }
