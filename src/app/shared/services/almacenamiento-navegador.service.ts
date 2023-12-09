@@ -1,23 +1,42 @@
 import { Injectable } from '@angular/core';
 
+interface DatoLocalStorage {
+  indice: string;
+  dato: string | object;
+  tipoDato: 'string' | 'object';
+}
+
+interface IndiceLocalStorage extends Partial<DatoLocalStorage> {
+  indice: string;
+}
+
+interface ObtenerDatoLocalStorage extends Partial<IndiceLocalStorage> {
+  indice: string;
+  tipoDato: 'string' | 'object';
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class AlmacenamientoNavegadorService {
-  guardarItem(key: string, value: string): void {
-    localStorage.setItem(key, value);
-  }
-
-  removerItem(key: string): void {
-    localStorage.removeItem(key);
-  }
-
-  obtenerItem(key: string): string | null {
-    const item = localStorage.getItem(key);
-    if (item) {
-      return item;
-    } else {
-      return null;
+  guardarItem(parametros: DatoLocalStorage): void {
+    if (parametros.tipoDato === 'string') {
+      localStorage.setItem(parametros.indice, parametros.dato as string);
+    } else if (parametros.tipoDato === 'object') {
+      localStorage.setItem(parametros.indice, JSON.stringify(parametros.dato));
     }
+  }
+
+  removerItem(parametros: IndiceLocalStorage): void {
+    localStorage.removeItem(parametros.indice);
+  }
+
+  obtenerItem(parametros: ObtenerDatoLocalStorage): string | object | null {
+    if (parametros.tipoDato === 'string') {
+      return localStorage.getItem(parametros.indice);
+    } else if (parametros.tipoDato === 'object') {
+      return JSON.parse(localStorage.getItem(parametros.indice) as string);
+    }
+    return null;
   }
 }

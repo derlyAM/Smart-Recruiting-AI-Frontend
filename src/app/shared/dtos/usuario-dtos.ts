@@ -1,4 +1,4 @@
-interface DatosUsuario {
+export interface DatosUsuario {
   id: number;
   cedula: number;
   nombres: string;

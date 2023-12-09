@@ -16,11 +16,18 @@ export class TokenService {
   constructor(private navegador: AlmacenamientoNavegadorService) {}
 
   guardarToken(token: string): void {
-    this.navegador.guardarItem('token', token);
+    this.navegador.guardarItem({
+      indice: 'token',
+      dato: token,
+      tipoDato: 'string',
+    });
   }
 
   obtenerToken(): string | null {
-    return this.navegador.obtenerItem('token');
+    return this.navegador.obtenerItem({
+      indice: 'token',
+      tipoDato: 'string',
+    }) as string;
   }
 
   obtenerTokenComoJson(): Token {
@@ -32,6 +39,8 @@ export class TokenService {
   }
 
   removerToken(): void {
-    this.navegador.removerItem('token');
+    this.navegador.removerItem({
+      indice: 'token',
+    });
   }
 }
