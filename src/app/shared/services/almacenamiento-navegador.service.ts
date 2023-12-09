@@ -31,12 +31,12 @@ export class AlmacenamientoNavegadorService {
     localStorage.removeItem(parametros.indice);
   }
 
-  obtenerItem(parametros: ObtenerDatoLocalStorage): string | object | null {
+  obtenerItem(parametros: ObtenerDatoLocalStorage): string | object {
     if (parametros.tipoDato === 'string') {
-      return localStorage.getItem(parametros.indice);
+      return localStorage.getItem(parametros.indice) as string;
     } else if (parametros.tipoDato === 'object') {
       return JSON.parse(localStorage.getItem(parametros.indice) as string);
     }
-    return null;
+    return '';
   }
 }

@@ -22,7 +22,7 @@ export class InfoUsuarioService {
     });
   }
 
-  obtenerRolUsuario(): number {
-    return 1;
+  obtenerInfoUsuario(): DatosUsuario {
+    return this.navegador.obtenerItem({ indice: 'infoUsuario', tipoDato: 'object' }) as DatosUsuario;
   }
 }
