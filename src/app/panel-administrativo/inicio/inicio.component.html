@@ -1,5 +1,5 @@
 <h1 class="text-2xl font-semibold mb-8">
-  Gusto en verte de nuevo, <span class="lista__opcion-card__titulo" class="text-primary">Yonier Vasquez</span>
+  Gusto en verte de nuevo, <span class="lista__opcion-card__titulo" class="text-primary">{{ nombreUsuario }}</span>
 </h1>
 
 <main class="lista">
@@ -52,11 +52,7 @@
     <span class="lista__opcion-card__titulo">Vacantes aplicadas</span>
   </section>
   <section class="lista__opcion-card" (click)="cerrarSesion()">
-    <img
-      class="lista__opcion-card__imagen"
-      src="assets/images/panel-administrativo/off.svg"
-      alt="Cerrar sesión"
-    />
+    <img class="lista__opcion-card__imagen" src="assets/images/panel-administrativo/off.svg" alt="Cerrar sesión" />
     <span class="lista__opcion-card__titulo">Cerrar sesión</span>
   </section>
 </main>
