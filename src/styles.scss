@@ -23,4 +23,10 @@
     border-radius: 14px;
     cursor: pointer;
   }
+
+  .lista-vacantes {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
 }
