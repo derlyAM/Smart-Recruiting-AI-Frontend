@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoginService } from '../../auth/login/login.service';
 
 @Component({
   selector: 'app-inicio',
@@ -9,7 +10,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './inicio.component.scss',
 })
 export class InicioComponent {
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute, private login: LoginService) {}
+
+  cerrarSesion() {
+    this.login.cerrarSesion();
+  }
 
   redirigirAPublicarVacante() {
     this.router.navigate(['publicar-vacante'], { relativeTo: this.route });
