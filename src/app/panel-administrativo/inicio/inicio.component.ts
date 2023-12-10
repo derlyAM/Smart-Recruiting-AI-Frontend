@@ -16,7 +16,7 @@ export class InicioComponent {
     this.login.cerrarSesion();
   }
 
-  redirigirAPublicarVacante() {
-    this.router.navigate(['publicar-vacante'], { relativeTo: this.route });
+  redirigirAGestionarVacantes() {
+    this.router.navigate(['gestionar-vacantes'], { relativeTo: this.route });
   }
 }

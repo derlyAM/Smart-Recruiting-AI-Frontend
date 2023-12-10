@@ -5,7 +5,7 @@ import { VacanteCardComponent } from '../../shared/components/vacante-card/vacan
   selector: 'app-publicar-vacante',
   standalone: true,
   imports: [VacanteCardComponent],
-  templateUrl: './publicar-vacante.component.html',
-  styleUrl: './publicar-vacante.component.scss',
+  templateUrl: './gestionar-vacantes.component.html',
+  styleUrl: './gestionar-vacantes.component.scss',
 })
-export class PublicarVacanteComponent {}
+export class GestionarVacantesComponent {}
