@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { VacanteCardComponent } from '../../shared/components/vacante-card/vacante-card.component';
-import { GestionarVacantesService } from './gestionar-vacantes.service';
+import { GestionarVacantesService } from '../../shared/services/gestionar-vacantes.service';
 import { firstValueFrom } from 'rxjs';
-import { DatosVacante } from './gesionar-vacantes.dtos';
+import { DatosVacante } from '../../shared/dtos/gesionar-vacantes.dtos';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-publicar-vacante',
@@ -12,7 +13,7 @@ import { DatosVacante } from './gesionar-vacantes.dtos';
   styleUrl: './gestionar-vacantes.component.scss',
 })
 export class GestionarVacantesComponent implements OnInit {
-  constructor(private gestionVacantes: GestionarVacantesService) {}
+  constructor(private gestionVacantes: GestionarVacantesService, private router: Router) {}
 
   vacantes_publicadas: DatosVacante[] = [];
 
@@ -22,5 +23,9 @@ export class GestionarVacantesComponent implements OnInit {
 
   private async obtenerVacantesPublicadas() {
     this.vacantes_publicadas = await firstValueFrom(this.gestionVacantes.obtenerVacantesPublicadas());
+  }
+
+  redireccionarAPublicarVacante() {
+    this.router.navigate(['/panel-administrativo/publicar-vacante']);
   }
 }
