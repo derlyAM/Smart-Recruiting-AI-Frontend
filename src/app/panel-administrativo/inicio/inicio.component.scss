@@ -1,0 +1,23 @@
+.lista {
+  display: flex;
+
+  &__opcion-card {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+
+    &__imagen {
+      justify-self: center;
+    }
+    
+    &__titulo {
+      align-self: baseline;
+      font-weight: 500;
+      user-select: none;
+    }
+  }
+}

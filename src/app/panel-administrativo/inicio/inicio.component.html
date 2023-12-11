@@ -1,0 +1,67 @@
+<h1 class="text-2xl font-semibold mb-8">
+  Gusto en verte de nuevo, <span class="lista__opcion-card__titulo" class="text-primary">{{ nombreUsuario }}</span>
+</h1>
+
+<main class="lista">
+  @if (usuarioEsReclutador) {
+
+    <section class="lista__opcion-card card-shadow" (click)="redirigirAGestionarVacantes()">
+      <img
+        class="lista__opcion-card__imagen"
+        src="assets/images/panel-administrativo/contrato.svg"
+        alt="Gestionar vacantes"
+      />
+      <span class="lista__opcion-card__titulo">Gestionar vacantes</span>
+    </section>
+
+  } @else {
+
+    <section class="lista__opcion-card card-shadow">
+      <img
+        class="lista__opcion-card__imagen"
+        src="assets/images/panel-administrativo/editar-perfil.svg"
+        alt="Editar perfil"
+      />
+      <span class="lista__opcion-card__titulo">Editar perfil</span>
+    </section>
+    <section class="lista__opcion-card card-shadow">
+      <img
+        class="lista__opcion-card__imagen"
+        src="assets/images/panel-administrativo/hoja-de-vida.svg"
+        alt="Generar hoja de vida"
+      />
+      <span class="lista__opcion-card__titulo">Generar hoja de vida</span>
+    </section>
+    <section class="lista__opcion-card card-shadow">
+      <img
+        class="lista__opcion-card__imagen"
+        src="assets/images/panel-administrativo/cerebro-electronico.svg"
+        alt="Recomendacion IA"
+      />
+      <span class="lista__opcion-card__titulo">Recomendacion IA</span>
+    </section>
+    <section class="lista__opcion-card card-shadow">
+      <img
+        class="lista__opcion-card__imagen"
+        src="assets/images/panel-administrativo/reunion-personas.svg"
+        alt="Buscar empleo"
+      />
+      <span class="lista__opcion-card__titulo">Buscar empleo</span>
+    </section>
+    <section class="lista__opcion-card card-shadow">
+      <img
+        class="lista__opcion-card__imagen"
+        src="assets/images/panel-administrativo/lista-tareas.svg"
+        alt="Vacantes aplicadas"
+      />
+      <span class="lista__opcion-card__titulo">Vacantes aplicadas</span>
+    </section>
+
+  }
+
+  <section class="lista__opcion-card card-shadow" (click)="cerrarSesion()">
+    <img class="lista__opcion-card__imagen" src="assets/images/panel-administrativo/off.svg" alt="Cerrar sesión" />
+    <span class="lista__opcion-card__titulo">Cerrar sesión</span>
+  </section>
+
+</main>

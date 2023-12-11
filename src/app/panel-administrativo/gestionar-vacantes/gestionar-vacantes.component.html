@@ -1,0 +1,11 @@
+<h1 class="text-2xl font-semibold mb-8">Gestionar vacantes publicadas</h1>
+
+@if (vacantes_publicadas.length != 0) {
+    <main class="lista-vacantes">
+        @for (vacante of vacantes_publicadas; track vacante.id) {
+            <app-vacante-card [titulo]="vacante.titulo" [descripcion]="vacante.descripcion" />
+        }
+    </main>
+} @else {
+    <h2>No hay vacantes publicadas</h2>
+}
