@@ -18,12 +18,12 @@ export class InicioComponent {
     private infoUsuario: InfoUsuarioService
   ) {}
 
-  get usuarioEsReclutador(): boolean {
-    return this.infoUsuario.usuarioEsReclutador();
-  }
+  usuarioEsReclutador = false;
+  nombreUsuario = '';
 
-  get nombreUsuario(): string {
-    return this.infoUsuario.obtenerInfoUsuario().nombres;
+  ngOnInit(): void {
+    this.usuarioEsReclutador = this.infoUsuario.usuarioEsReclutador();
+    this.nombreUsuario = this.infoUsuario.obtenerNombreUsuario();
   }
 
   cerrarSesion() {

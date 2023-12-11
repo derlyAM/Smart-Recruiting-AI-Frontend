@@ -34,4 +34,8 @@ export class InfoUsuarioService {
   usuarioEsPostulante(): boolean {
     return this.obtenerInfoUsuario().rol === RolUsuario.POSTULANTE;
   }
+
+  obtenerNombreUsuario() {
+    return this.obtenerInfoUsuario().nombres;
+  }
 }

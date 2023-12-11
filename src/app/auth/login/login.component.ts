@@ -39,15 +39,15 @@ export class LoginComponent {
 
     try {
       const token = await firstValueFrom(this.loginService.iniciarSesion(loginDto));
-      this.accionesDeInicioDeSesion(token);
+      await this.accionesDeInicioDeSesion(token);
     } catch (error) {
       console.error(error);
     }
   }
 
-  private accionesDeInicioDeSesion(token: string): void {
+  private async accionesDeInicioDeSesion(token: string) {
     this.token.guardarToken(token);
-    this.infoUsuario.cargarInfoUsuario();
+    await this.infoUsuario.cargarInfoUsuario();
     this.router.navigate(['/panel-administrativo']);
   }
 }
