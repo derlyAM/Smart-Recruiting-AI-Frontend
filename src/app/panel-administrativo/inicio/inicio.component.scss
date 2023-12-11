@@ -1,7 +1,5 @@
 .lista {
-  display: grid;
-  gap: 30px;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  display: flex;
 
   &__opcion-card {
     display: grid;
@@ -9,6 +7,8 @@
     align-items: center;
     width: 200px;
     height: 200px;
+    margin-right: 50px;
+    margin-bottom: 50px;
 
     &__imagen {
       justify-self: center;
