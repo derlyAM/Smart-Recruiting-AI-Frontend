@@ -17,4 +17,8 @@ export class GestionarVacantesService {
   crearVacante(vacante: CrearVacante): Observable<any> {
     return this.http.post('/vacantes', vacante);
   }
+
+  eliminarVacante(id_vacante: number): Observable<any> {
+    return this.http.delete('/vacantes/' + id_vacante);
+  }
 }
