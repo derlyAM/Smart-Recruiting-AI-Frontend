@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { AlmacenamientoNavegadorService } from './almacenamiento-navegador.service';
 import { DatosUsuario } from '../dtos/usuario-dtos';
+import { RolUsuario } from '../enums/rol-usuario.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -24,5 +25,13 @@ export class InfoUsuarioService {
 
   obtenerInfoUsuario(): DatosUsuario {
     return this.navegador.obtenerItem({ indice: 'infoUsuario', tipoDato: 'object' }) as DatosUsuario;
+  }
+
+  usuarioEsReclutador(): boolean {
+    return this.obtenerInfoUsuario().rol === RolUsuario.RECLUTADOR;
+  }
+
+  usuarioEsPostulante(): boolean {
+    return this.obtenerInfoUsuario().rol === RolUsuario.POSTULANTE;
   }
 }

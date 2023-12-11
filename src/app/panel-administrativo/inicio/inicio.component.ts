@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoginService } from '../../auth/login/login.service';
 import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
+import { RolUsuario } from '../../shared/enums/rol-usuario.enum';
 
 @Component({
   selector: 'app-inicio',
@@ -17,6 +18,14 @@ export class InicioComponent {
     private login: LoginService,
     private infoUsuario: InfoUsuarioService
   ) {}
+
+  get usuarioEsReclutador(): boolean {
+    return this.infoUsuario.usuarioEsReclutador();
+  }
+
+  get usuarioEsPostulante(): boolean {
+    return this.infoUsuario.usuarioEsPostulante();
+  }
 
   get nombreUsuario(): string {
     return this.infoUsuario.obtenerInfoUsuario().nombres;
