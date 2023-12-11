@@ -12,3 +12,5 @@ export interface DatosVacante {
   area_trabajo: string;
   annos_experiencia: number;
 }
+
+export interface CrearVacante extends Omit<DatosVacante, 'id'> {}
