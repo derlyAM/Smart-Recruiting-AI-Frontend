@@ -29,6 +29,7 @@ export class LoginComponent {
 
   async iniciarSesion() {
     if (this.form.invalid) {
+      console.log("Invalido");
       
       return;
     }
@@ -38,8 +39,12 @@ export class LoginComponent {
       passwd: this.form.get('passwd')?.value || '',
     };
 
+    
+
     try {
       const token = await firstValueFrom(this.loginService.iniciarSesion(loginDto));
+      console.log(token);
+      
       await this.accionesDeInicioDeSesion(token);
     } catch (error) {
       console.error(error);
