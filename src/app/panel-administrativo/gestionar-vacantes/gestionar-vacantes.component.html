@@ -23,7 +23,7 @@
 
 @if (vacantes_publicadas.length != 0) {
     <main class="lista-vacantes">
-        @for (vacante of vacantes_publicadas; track vacante.id) {
+        @for (vacante of vacantes_publicadas; track vacante.titulo) {
             <app-vacante-card [titulo]="vacante.titulo" [descripcion]="vacante.descripcion" />
         }
     </main>

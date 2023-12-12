@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CrearVacante } from '../../shared/dtos/gesionar-vacantes.dtos';
+import { DatosVacante } from '../../shared/dtos/gesionar-vacantes.dtos';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GestionarVacantesService } from '../../shared/services/gestionar-vacantes.service';
 import { firstValueFrom } from 'rxjs';
@@ -29,7 +29,7 @@ export class CrearEditarVacanteComponent implements OnInit {
   ciudadesDelEstadoSeleccinado: string[] = [];
   ciudadSeleccionada = '';
 
-  habilitarBotonCrearVacante = true;
+  habilitarBotonCrearEditarVacante = true;
 
   form = new FormGroup({
     titulo: new FormControl('', [Validators.minLength(5)]),
@@ -59,7 +59,7 @@ export class CrearEditarVacanteComponent implements OnInit {
     }
   }
 
-  obtenerCiudades() {
+  cargarCiudadesDelEstadoSeleccionado() {
     if (!this.estadoSeleccionado) {
       return;
     }
@@ -80,7 +80,7 @@ export class CrearEditarVacanteComponent implements OnInit {
   }
 
   private async cargarVacanteSiEsEdicion() {
-    const idVacante = this.obtenerIdVacanteSiEsEdicion();
+    const idVacante = this.obtenerIdVacanteDeLaUrl();
     if (!idVacante) {
       return;
     }
@@ -103,20 +103,31 @@ export class CrearEditarVacanteComponent implements OnInit {
     });
 
     this.estadoSeleccionado = this.ubicaciones.find((ubicacion) => ubicacion.id === vacante.ubicacion)?.estado || '';
+    this.cargarCiudadesDelEstadoSeleccionado();
     this.ciudadSeleccionada = this.ubicaciones.find((ubicacion) => ubicacion.id === vacante.ubicacion)?.ciudad || '';
   }
 
-  private obtenerIdVacanteSiEsEdicion(): string {
-    return this.route.snapshot.paramMap.get('id') || '';
+  private obtenerIdVacanteDeLaUrl(): number | null {
+    const idVacante = this.route.snapshot.paramMap.get('id');
+    if (idVacante) {
+      return parseInt(idVacante, 10);
+    } else {
+      return null;
+    }
   }
 
-  async crearVacante() {
+  formularioEsParaCrearVacante(): boolean {
+    return this.obtenerIdVacanteDeLaUrl() === null;
+  }
+
+  async crearEditarVacante() {
     if (this.form.invalid || !this.estadoSeleccionado || !this.ciudadSeleccionada) {
       alert('Por favor, llene todos los campos');
       return;
     }
 
-    const crearVacante: CrearVacante = {
+    const vacante: DatosVacante = {
+      id : this.obtenerIdVacanteDeLaUrl() || 0,
       titulo: this.form.get('titulo')?.value || '',
       descripcion: this.form.get('descripcion')?.value || '',
       fecha_publicacion: this.form.get('fecha_publicacion')?.value || '',
@@ -131,13 +142,26 @@ export class CrearEditarVacanteComponent implements OnInit {
     };
 
     try {
-      this.habilitarBotonCrearVacante = false;
-      await firstValueFrom(this.gestionarVacantesService.crearVacante(crearVacante));
-      alert('Vacante creada con éxito');
+      this.habilitarBotonCrearEditarVacante = false;
+      if (this.formularioEsParaCrearVacante()) {
+        await this.crearVacanteEnServidor(vacante);
+      } else {
+        await this.editarVacanteEnServidor(vacante);
+      }
     } catch (error) {
       console.error(error);
     } finally {
-      this.habilitarBotonCrearVacante = true;
+      this.habilitarBotonCrearEditarVacante = true;
     }
+  }
+
+  private async crearVacanteEnServidor(vacante: DatosVacante) {
+    await firstValueFrom(this.gestionarVacantesService.crearVacante(vacante));
+    alert('Vacante creada exitosamente');
+  }
+
+  private async editarVacanteEnServidor(vacante: DatosVacante) {
+    await firstValueFrom(this.gestionarVacantesService.editarVacante(vacante));
+    alert('Vacante editada exitosamente');
   }
 }

@@ -1,10 +1,9 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatosVacante } from '../../shared/dtos/gesionar-vacantes.dtos';
 import { firstValueFrom } from 'rxjs';
 import { GestionarVacantesService } from '../../shared/services/gestionar-vacantes.service';
 import { VacanteCardComponent } from '../../shared/components/vacante-card/vacante-card.component';
-import { ViewChild, ElementRef } from '@angular/core';
-import { Modal, ModalOptions } from 'flowbite';
+import { Modal } from 'flowbite';
 
 @Component({
   selector: 'app-eliminar-vacante',

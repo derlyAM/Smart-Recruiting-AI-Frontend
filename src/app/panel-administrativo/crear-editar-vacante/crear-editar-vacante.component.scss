@@ -7,3 +7,7 @@ label:not(label:nth-child(1)) {
   background-color: #fbf7f7;
   outline: none;
 }
+
+.input[type="checkbox"]:checked {
+  background-color: #9a9a9a;
+}
