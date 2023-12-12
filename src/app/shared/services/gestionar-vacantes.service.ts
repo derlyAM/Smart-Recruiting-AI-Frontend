@@ -21,4 +21,12 @@ export class GestionarVacantesService {
   eliminarVacante(id_vacante: number): Observable<any> {
     return this.http.delete('/vacantes/' + id_vacante);
   }
+  
+  obtenerVacante(id: string): Observable<DatosVacante> {
+    return this.http.get<DatosVacante>(`/vacantes/${id}`);
+  }
+
+  editarVacante(id: string, vacante: CrearVacante): Observable<any> {
+    return this.http.put(`/vacantes/${id}`, vacante);
+  }
 }

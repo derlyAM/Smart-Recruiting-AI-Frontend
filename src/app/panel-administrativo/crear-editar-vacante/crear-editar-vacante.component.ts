@@ -6,19 +6,21 @@ import { firstValueFrom } from 'rxjs';
 import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
 import { UbicacionService } from '../../shared/services/ubicacion.service';
 import { Ubicacion } from '../../shared/dtos/ubicacion.dto';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-crear-vacante',
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule],
-  templateUrl: './crear-vacante.component.html',
-  styleUrl: './crear-vacante.component.scss',
+  templateUrl: './crear-editar-vacante.component.html',
+  styleUrl: './crear-editar-vacante.component.scss',
 })
-export class CrearVacanteComponent implements OnInit {
+export class CrearEditarVacanteComponent implements OnInit {
   constructor(
     private gestionarVacantesService: GestionarVacantesService,
     private infoUsuario: InfoUsuarioService,
-    private ubicacion: UbicacionService
+    private ubicacion: UbicacionService,
+    private route: ActivatedRoute
   ) {}
 
   ubicaciones: Ubicacion[] = [];
@@ -43,6 +45,7 @@ export class CrearVacanteComponent implements OnInit {
 
   async ngOnInit() {
     await this.obtenerTodasLasUbicaciones();
+    await this.cargarVacanteSiEsEdicion();
   }
 
   async obtenerTodasLasUbicaciones() {
@@ -74,6 +77,37 @@ export class CrearVacanteComponent implements OnInit {
         (ubicacion) => ubicacion.estado === this.estadoSeleccionado && ubicacion.ciudad === this.ciudadSeleccionada
       )?.id || 0
     );
+  }
+
+  private async cargarVacanteSiEsEdicion() {
+    const idVacante = this.obtenerIdVacanteSiEsEdicion();
+    if (!idVacante) {
+      return;
+    }
+
+    const vacante = await firstValueFrom(this.gestionarVacantesService.obtenerVacante(idVacante));
+    if (!vacante) {
+      return;
+    }
+
+    this.form.setValue({
+      titulo: vacante.titulo,
+      descripcion: vacante.descripcion,
+      fecha_publicacion: vacante.fecha_publicacion,
+      fecha_cierre: vacante.fecha_cierre,
+      salario: vacante.salario,
+      remoto: vacante.remoto,
+      modalidad: vacante.modalidad,
+      area_trabajo: vacante.area_trabajo,
+      annos_experiencia: vacante.annos_experiencia,
+    });
+
+    this.estadoSeleccionado = this.ubicaciones.find((ubicacion) => ubicacion.id === vacante.ubicacion)?.estado || '';
+    this.ciudadSeleccionada = this.ubicaciones.find((ubicacion) => ubicacion.id === vacante.ubicacion)?.ciudad || '';
+  }
+
+  private obtenerIdVacanteSiEsEdicion(): string {
+    return this.route.snapshot.paramMap.get('id') || '';
   }
 
   async crearVacante() {
