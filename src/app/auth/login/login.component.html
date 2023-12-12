@@ -1,8 +1,27 @@
-<h1>Iniciar sesión</h1>
-<form [formGroup]="form">
-  <input type="email" formControlName="correo"/>
-  <br>
-  <input type="password" formControlName="passwd"/>
-  <br>
-  <input type="button" (click)="iniciarSesion()" value="Login" />
-</form>
+<div class="max-w-sm mx-auto">
+  <div class="grid place-content-center">
+    <img src="../../../assets/images/Logo.svg" alt="Smart Recruit AI Logo" class="w-72 h-72">
+  </div>
+  <h1 class="my-5">Smart Recruit AI</h1>
+  <form [formGroup]="form" class="">
+    <div class="mb-8">
+      <input type="email" id="base-input" placeholder="Email" formControlName="correo" required
+        class="bg-[#f8fafc] border border-[#a1a1aa] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+    </div>
+    <div class="mb-8">
+      <input type="password" id="base-input" placeholder="Contraseña" formControlName="correo" required
+        class="bg-[#f8fafc] border border-[#a1a1aa] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+    </div>
+    <div class="grid justify-items-center">
+      <div class="mb-1">
+        <input type="button" (click)="iniciarSesion()" value="Iniciar sesión"
+          class="text-[#fafafa] bg-[#4787E4] hover:bg-[#4796e4] focus:ring-4 focus:outline-none focus:ring-[#4796e4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2" />
+      </div>
+      <div>
+        <input type="button" (click)="iniciarSesion()" value="o registrarse" class="text-[#4787E4] cursor-pointer"/>
+      </div>
+
+    </div>
+
+  </form>
+</div>

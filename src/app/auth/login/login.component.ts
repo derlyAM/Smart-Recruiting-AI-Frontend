@@ -29,6 +29,7 @@ export class LoginComponent {
 
   async iniciarSesion() {
     if (this.form.invalid) {
+      
       return;
     }
 
