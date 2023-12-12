@@ -5,6 +5,7 @@ import { GestionarVacantesComponent } from './gestionar-vacantes/gestionar-vacan
 import { VacantesRecomendadasComponent } from './vacantes-recomendadas/vacantes-recomendadas.component';
 import { EliminarVacanteComponent } from './eliminar-vacante/eliminar-vacante.component';
 import { CrearEditarVacanteComponent } from './crear-editar-vacante/crear-editar-vacante.component';
+import { EditarVacanteComponent } from './editar-vacante/editar-vacante.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
     component: GestionarVacantesComponent,
   },
   {
-    path: 'publicar-vacante',
+    path: 'vacante',
     component: CrearEditarVacanteComponent,
   },
   {
@@ -24,7 +25,11 @@ const routes: Routes = [
     component: EliminarVacanteComponent,
   },
   {
-    path: 'editar-vacante/:id',
+    path: 'editar-vacante',
+    component: EditarVacanteComponent,
+  },
+  {
+    path: 'vacante/:id',
     component: CrearEditarVacanteComponent,
   },
   {
