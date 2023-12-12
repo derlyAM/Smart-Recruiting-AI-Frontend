@@ -1,5 +1,6 @@
 .lista {
   display: flex;
+  flex-flow: wrap;
 
   &__opcion-card {
     display: grid;

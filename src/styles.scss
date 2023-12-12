@@ -25,9 +25,13 @@
   }
 
   .lista-vacantes {
-    display: grid;
-    gap: 30px;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+
+    .vacante-card {
+      margin-right: 60px;
+      margin-bottom: 60px;
+    }
   }
 
   button[disabled] {

@@ -26,10 +26,15 @@ export class GestionarVacantesComponent implements OnInit {
   }
 
   redireccionarAPublicarVacante() {
-    this.router.navigate(['/panel-administrativo/publicar-vacante']);
+    this.router.navigate(['/panel-administrativo/vacante']);
+  }
+  
+  redireccionarAEditarVacante() {
+    this.router.navigate(['/panel-administrativo/editar-vacante']);
   }
 
   redireccionarAEliminarVacante() {
     this.router.navigate(['/panel-administrativo/eliminar-vacante']);
   }
+  
 }
