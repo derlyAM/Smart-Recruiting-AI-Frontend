@@ -11,25 +11,6 @@
     required
   />
 
-  <label for="direccion">Dirección</label>
-  <input
-    type="text"
-    id="direccion"
-    class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-    formControlName="direccion"
-    placeholder="809 Summit Ave, Greensboro, Nebraska"
-    required
-  />
-
-  <label for="numero_telefonico">Número telefónico</label>
-  <input
-    type="number"
-    id="numero_telefonico"
-    class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-    formControlName="numero_telefonico"
-    required
-  />
-
   <label for="idiomas">Idiomas</label>
   <input
     type="text"
@@ -46,16 +27,6 @@
     class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
     formControlName="habilidades"
     placeholder="trabajo en equipo, ..."
-    required
-  />
-
-  <label for="intereses">Intereses</label>
-  <input
-    type="text"
-    id="intereses"
-    class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-    formControlName="intereses"
-    placeholder="computación, ..."
     required
   />
 
@@ -83,7 +54,7 @@
               </div>
               <!-- Modal body -->
               <div class="p-4 md:p-5">
-                  <form class="space-y-4" [formGroup]="form" action="#">
+                  <section class="space-y-4" action="#">
                       <div>
                           <label for="nombre_empresa" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre empresa</label>
                           <input type="text" formControlName="nombre_empresa" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Nombre empresa" required>
@@ -109,7 +80,7 @@
                         <input type="text" formControlName="responsabilidades" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="codificación, diseño" required>
                       </div>
                       <button type="button" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-hide="experiencia-modal">Aceptar</button>
-                  </form>
+                    </section>
               </div>
           </div>
       </div>

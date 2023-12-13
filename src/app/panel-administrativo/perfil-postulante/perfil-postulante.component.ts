@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
+import { firstValueFrom } from 'rxjs';
+import { PerfilPostulanteService } from './perfil-postulante.service';
 
 
 @Component({
@@ -10,19 +12,16 @@ import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
   templateUrl: './perfil-postulante.component.html',
   styleUrl: './perfil-postulante.component.scss'
 })
-export class PerfilPostulanteComponent {
+export class PerfilPostulanteComponent implements OnInit{
   constructor(
-    //private gestionarVacantesService: GestionarVacantesService,
-    private infoUsuario: InfoUsuarioService
+    private infoUsuario: InfoUsuarioService,
+    private postulanteService: PerfilPostulanteService
   ) { }
 
   form = new FormGroup({
     nombre: new FormControl('', Validators.minLength(1)),
-    direccion: new FormControl('', Validators.minLength(1)),
-    numero_telefonico: new FormControl(0, Validators.min(1)),
     idiomas: new FormControl('', Validators.minLength(1)),
     habilidades: new FormControl('', Validators.minLength(1)),
-    intereses: new FormControl('', Validators.minLength(1)),
     nombre_empresa: new FormControl('', Validators.minLength(1)),
     contacto: new FormControl('', Validators.minLength(1)),
     tipo_cargo: new FormControl('', Validators.minLength(1)),
@@ -39,6 +38,32 @@ export class PerfilPostulanteComponent {
   })
 
   habilitarBotonGuardarCambios = true;
+
+  async ngOnInit() {
+    this.obtenerNombreUsuario()
+    await this.obtenerDatosPostulante()
+    await this.obtenerDatosExperiencia()
+  }
+
+  obtenerNombreUsuario(){
+    this.form.get("nombre")?.setValue(this.infoUsuario.obtenerInfoUsuario().nombres)
+  }
+
+  async obtenerDatosPostulante(){
+    const postulante = await firstValueFrom(this.postulanteService.obtenerPerfilPostulante())
+    this.form.get("habilidades")?.setValue(postulante.habilidades)
+    this.form.get("idiomas")?.setValue(postulante.idiomas)
+  }
+  async obtenerDatosExperiencia(){
+    const respuesta = await firstValueFrom(this.postulanteService.obtenerExperienciaPostulante())
+    const experiencia = respuesta[0]
+    this.form.get("nombre_empresa")?.setValue(experiencia.nombre_empresa)
+    this.form.get("contacto")?.setValue(experiencia.contacto)
+    this.form.get("tipo_cargo")?.setValue(experiencia.tipo_cargo)
+    this.form.get("fecha_inicio")?.setValue(experiencia.fecha_inicio)
+    this.form.get("fecha_finalizacion")?.setValue(experiencia.fecha_finalizacion)
+    this.form.get("responsabilidades")?.setValue(experiencia.responsabilidades)
+  }
 
   guardarPerfilPostulante() {
     console.log(this.form.valid)
