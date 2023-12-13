@@ -4,6 +4,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { GestionarVacantesComponent } from './gestionar-vacantes/gestionar-vacantes.component';
 import { VacantesRecomendadasComponent } from './vacantes-recomendadas/vacantes-recomendadas.component';
 import { CrearVacanteComponent } from './crear-vacante/crear-vacante.component';
+import {PerfilPostulanteComponent} from './perfil-postulante/perfil-postulante.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
   {
     path: 'publicar-vacante',
     component: CrearVacanteComponent,
+  },
+  {
+    path: 'perfil-postulante',
+    component: PerfilPostulanteComponent,
   },
   {
     path: '**',

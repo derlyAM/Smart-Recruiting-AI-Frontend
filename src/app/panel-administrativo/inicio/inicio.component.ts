@@ -33,4 +33,8 @@ export class InicioComponent {
   redirigirAGestionarVacantes() {
     this.router.navigate(['gestionar-vacantes'], { relativeTo: this.route });
   }
+  
+  redirigirAEditarPerfil() {
+    this.router.navigate(['perfil-postulante'], { relativeTo: this.route });
+  }
 }
