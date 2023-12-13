@@ -14,17 +14,34 @@ export class PerfilPostulanteComponent {
   constructor(
     //private gestionarVacantesService: GestionarVacantesService,
     private infoUsuario: InfoUsuarioService
-  ) {}
+  ) { }
 
   form = new FormGroup({
-    nombre: new FormControl(''),
-    direccion: new FormControl(''),
-    numero_telefonico: new FormControl(0),
-    idiomas: new FormControl(''),
-    habilidades: new FormControl(''),
-    intereses: new FormControl('')
+    nombre: new FormControl('', Validators.minLength(1)),
+    direccion: new FormControl('', Validators.minLength(1)),
+    numero_telefonico: new FormControl(0, Validators.min(1)),
+    idiomas: new FormControl('', Validators.minLength(1)),
+    habilidades: new FormControl('', Validators.minLength(1)),
+    intereses: new FormControl('', Validators.minLength(1)),
+    nombre_empresa: new FormControl('', Validators.minLength(1)),
+    contacto: new FormControl('', Validators.minLength(1)),
+    tipo_cargo: new FormControl('', Validators.minLength(1)),
+    fecha_inicio: new FormControl('', Validators.minLength(1)),
+    fecha_finalizacion: new FormControl('', Validators.minLength(1)),
+    responsabilidades: new FormControl('', Validators.minLength(1)),
+    titulo_obtenido: new FormControl('', Validators.minLength(1)),
+    institucion: new FormControl('', Validators.minLength(1)),
+    area_de_estudio: new FormControl('', Validators.minLength(1)),
+    fecha_inicio_estudio: new FormControl('', Validators.minLength(1)),
+    fecha_finalizacion_estudio: new FormControl('', Validators.minLength(1)),
+    promedio_ponderado: new FormControl(0, Validators.min(1)),
+    reconocimientos: new FormControl('', Validators.minLength(1)),
   })
 
   habilitarBotonGuardarCambios = true;
 
+  guardarPerfilPostulante() {
+    console.log(this.form.valid)
+    console.log(this.form.value)
+  }
 }

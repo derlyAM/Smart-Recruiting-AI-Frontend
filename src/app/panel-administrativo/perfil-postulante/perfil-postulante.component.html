@@ -59,11 +59,127 @@
     required
   />
 
+  <!-- Modal toggle -->
+  <button data-modal-target="experiencia-modal" data-modal-toggle="experiencia-modal" class="mt-7 block text-white bg-gray-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+    Registrar experiencia
+  </button>
+
+  <!-- Main modal -->
+  <div id="experiencia-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative p-4 w-full max-w-md max-h-full">
+          <!-- Modal content -->
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+              <!-- Modal header -->
+              <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                      Experiencia
+                  </h3>
+                  <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="experiencia-modal">
+                      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                      </svg>
+                      <span class="sr-only">Close modal</span>
+                  </button>
+              </div>
+              <!-- Modal body -->
+              <div class="p-4 md:p-5">
+                  <form class="space-y-4" [formGroup]="form" action="#">
+                      <div>
+                          <label for="nombre_empresa" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre empresa</label>
+                          <input type="text" formControlName="nombre_empresa" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Nombre empresa" required>
+                      </div>
+                      <div>
+                        <label for="contacto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contacto</label>
+                        <input type="text" formControlName="contacto" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="jose@company.com" required>
+                      </div>
+                      <div>
+                        <label for="tipo_cargo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo cargo</label>
+                        <input type="text" formControlName="tipo_cargo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="desarrollo" required>
+                      </div>
+                      <div>
+                        <label for="fecha_inicio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha inicio</label>
+                        <input type="date" formControlName="fecha_inicio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                      </div>
+                      <div>
+                        <label for="fecha_finalizacion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha finalización </label>
+                        <input type="date" formControlName="fecha_finalizacion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                      </div>
+                      <div>
+                        <label for="responsabilidades" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Responsabilidades </label>
+                        <input type="text" formControlName="responsabilidades" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="codificación, diseño" required>
+                      </div>
+                      <button type="button" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-hide="experiencia-modal">Aceptar</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div> 
+
+  <button data-modal-target="historial-modal" data-modal-toggle="historial-modal" class="mt-7 block text-white bg-gray-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+    Registrar historial académico
+  </button>
+  
+    
+  <div id="historial-modal" [formGroup]="form" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative p-4 w-full max-w-md max-h-full">
+          
+          <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+             
+              <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                      Historial
+                  </h3>
+                  <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="historial-modal">
+                      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                      </svg>
+                      <span class="sr-only">Close modal</span>
+                  </button>
+              </div>
+              
+              <div class="p-4 md:p-5">
+                  <form class="space-y-4" [formGroup]="form" action="#">
+                      <div>
+                          <label for="titulo_obtenido" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Titulo obtenido</label>
+                          <input type="text" formControlName="titulo_obtenido" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Ingeniero de sistemas" required>
+                      </div>
+                      <div>
+                        <label for="institucion" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Institucion</label>
+                        <input type="text" formControlName="institucion" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="Universidad de Caldas" required>
+                      </div>
+                      <div>
+                        <label for="area_de_estudio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Area de estudio</label>
+                        <input type="text" formControlName="area_de_estudio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="ingenieria" required>
+                      </div>
+                      <div>
+                        <label for="fecha_inicio_estudio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha inicio</label>
+                        <input type="date" formControlName="fecha_inicio_estudio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                      </div>
+                      <div>
+                        <label for="fecha_finalizacion_estudio" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha finalización </label>
+                        <input type="date" formControlName="fecha_finalizacion_estudio" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                      </div>
+                      <div>
+                        <label for="promedio_ponderado" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Promedio ponderado </label>
+                        <input type="number" formControlName="promedio_ponderado" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required>
+                      </div>
+                      <div>
+                        <label for="reconocimientos" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Reconocimientos </label>
+                        <input type="text" formControlName="reconocimientos" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="mejor promedio" required>
+                      </div>
+                      <button type="button" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" data-modal-hide="historial-modal">Aceptar</button>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div> 
+
   <button
     type="button"
     class="bg-primary font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-8 mt-8 focus:outline-none"
     style="color: white"
     [disabled]="!habilitarBotonGuardarCambios"
+    (click)="guardarPerfilPostulante()"
   >
     Confirmar cambios
   </button>
