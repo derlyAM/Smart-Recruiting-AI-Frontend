@@ -18,34 +18,30 @@ interface Token {
 export class TokenService {
   constructor(private navegador: AlmacenamientoNavegadorService) { }
 
-
-  encriptarToken(token: string): string {
-    const encryptedToken = CryptoJS.AES.encrypt(token, environment.secret_key).toString();
-    return encryptedToken;
-  }
-
-  desencriptarToken(encryptedToken: string): string {
-    const decryptedBytes = CryptoJS.AES.decrypt(encryptedToken, environment.secret_key);
-    const decryptedToken = decryptedBytes.toString(CryptoJS.enc.Utf8);
-    return decryptedToken;
-  }
-
   guardarToken(token: string): void {
-    const encryptedToken = this.encriptarToken(token)
     this.navegador.guardarItem({
       indice: 'token',
-      dato: encryptedToken,
+      dato: token,
       tipoDato: 'string',
     });
   }
 
+  encriptarDatos(datos: any): string {
+    const encryptedData = CryptoJS.AES.encrypt(datos, environment.secret_key).toString();
+    return encryptedData;
+  }
+
+  desencriptarDatos(encryptedData: string): any {
+    const decryptedBytes = CryptoJS.AES.decrypt(encryptedData, environment.secret_key);
+    const decryptedData = decryptedBytes.toString(CryptoJS.enc.Utf8);
+    return decryptedData;
+  }
+
   obtenerToken(): string | null {
-    const item = this.navegador.obtenerItem({
+    return this.navegador.obtenerItem({
       indice: 'token',
       tipoDato: 'string',
     }) as string;
-
-    return this.desencriptarToken(item)
   }
 
   obtenerTokenComoJson(): Token {

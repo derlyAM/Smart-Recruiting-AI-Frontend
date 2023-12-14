@@ -4,6 +4,8 @@ import { firstValueFrom } from 'rxjs';
 import { AlmacenamientoNavegadorService } from './almacenamiento-navegador.service';
 import { DatosUsuario } from '../dtos/usuario-dtos';
 import { RolUsuario } from '../enums/rol-usuario.enum';
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +23,7 @@ export class InfoUsuarioService {
       dato: infoUsuario,
       tipoDato: 'object',
     });
+    
   }
 
   obtenerInfoUsuario(): DatosUsuario {

@@ -15,7 +15,7 @@ export class LoginService {
     private router: Router,
     private navegador: AlmacenamientoNavegadorService,
     private infoUsuario: InfoUsuarioService
-  ) {}
+  ) { }
 
   iniciarSesion(loginDto: LoginDto): Observable<string> {
     return this.http.post<string>('/auth/login', loginDto);
