@@ -13,4 +13,13 @@ export interface ExperienciaDto{
   fecha_finalizacion: string
   responsabilidades: string
 }
+export interface EducacionDto{
+  titulo_obtenido: string
+  institucion: string
+  area_de_estudio: string
+  fecha_inicio: string
+  fecha_finalizacion: string
+  promedio_ponderado: number
+  reconocimientos: string
+}
   

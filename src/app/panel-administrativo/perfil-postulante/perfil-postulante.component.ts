@@ -43,6 +43,7 @@ export class PerfilPostulanteComponent implements OnInit{
     this.obtenerNombreUsuario()
     await this.obtenerDatosPostulante()
     await this.obtenerDatosExperiencia()
+    await this.obtenerDatosEducacion()
   }
 
   obtenerNombreUsuario(){
@@ -63,6 +64,17 @@ export class PerfilPostulanteComponent implements OnInit{
     this.form.get("fecha_inicio")?.setValue(experiencia.fecha_inicio)
     this.form.get("fecha_finalizacion")?.setValue(experiencia.fecha_finalizacion)
     this.form.get("responsabilidades")?.setValue(experiencia.responsabilidades)
+  }
+  async obtenerDatosEducacion(){
+    const respuesta = await firstValueFrom(this.postulanteService.obtenerEducacionPostulante())
+    const educacion = respuesta[0]
+    this.form.get("titulo_obtenido")?.setValue(educacion.titulo_obtenido)
+    this.form.get("institucion")?.setValue(educacion.titulo_obtenido)
+    this.form.get("area_de_estudio")?.setValue(educacion.titulo_obtenido)
+    this.form.get("fecha_inicio_estudio")?.setValue(educacion.fecha_inicio)
+    this.form.get("fecha_finalizacion_estudio")?.setValue(educacion.fecha_finalizacion)
+    this.form.get("promedio_ponderado")?.setValue(educacion.promedio_ponderado)
+    this.form.get("reconocimientos")?.setValue(educacion.reconocimientos)
   }
 
   guardarPerfilPostulante() {

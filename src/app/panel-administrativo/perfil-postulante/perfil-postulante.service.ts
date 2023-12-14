@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PerfilPostulanteDto, ExperienciaDto } from './perfil-postulante.dtos';
+import { PerfilPostulanteDto, ExperienciaDto, EducacionDto } from './perfil-postulante.dtos';
 
 @Injectable({
   providedIn: 'root'
@@ -16,5 +16,9 @@ export class PerfilPostulanteService {
 
   obtenerExperienciaPostulante():Observable<ExperienciaDto[]>{
     return this.http.get<ExperienciaDto[]>("/experiencia")
+  }
+
+  obtenerEducacionPostulante():Observable<EducacionDto[]>{
+    return this.http.get<EducacionDto[]>("/historial-academico")
   }
 }
