@@ -1,0 +1,17 @@
+<h1 class="text-2xl font-semibold mb-8">Editar vacantes</h1>
+
+<p class="mb-8">Selecciona la vacante que deseas editar</p>
+
+@if (vacantes_publicadas.length != 0) {
+    <main class="lista-vacantes">
+    @for (vacante of vacantes_publicadas; track vacante.id) {
+        <app-vacante-card
+            (click)="accionesEditarVacante(vacante.id)"
+            [titulo]="vacante.titulo"
+            [descripcion]="vacante.descripcion"
+        />
+    }
+    </main>
+} @else {
+    <h2>No hay vacantes publicadas</h2>
+}

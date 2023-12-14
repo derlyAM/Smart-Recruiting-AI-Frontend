@@ -3,7 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { InicioComponent } from './inicio/inicio.component';
 import { GestionarVacantesComponent } from './gestionar-vacantes/gestionar-vacantes.component';
 import { VacantesRecomendadasComponent } from './vacantes-recomendadas/vacantes-recomendadas.component';
-import { CrearVacanteComponent } from './crear-vacante/crear-vacante.component';
+import { EliminarVacanteComponent } from './eliminar-vacante/eliminar-vacante.component';
+import { CrearEditarVacanteComponent } from './crear-editar-vacante/crear-editar-vacante.component';
+import { EditarVacanteComponent } from './editar-vacante/editar-vacante.component';
 
 
 const routes: Routes = [
@@ -16,12 +18,24 @@ const routes: Routes = [
     component: GestionarVacantesComponent,
   },
   {
-    path: 'vacantes-recomendadas',
-    component: VacantesRecomendadasComponent,
+    path: 'vacante',
+    component: CrearEditarVacanteComponent,
   },
   {
-    path: 'publicar-vacante',
-    component: CrearVacanteComponent,
+    path: 'eliminar-vacante',
+    component: EliminarVacanteComponent,
+  },
+  {
+    path: 'editar-vacante',
+    component: EditarVacanteComponent,
+  },
+  {
+    path: 'vacante/:id',
+    component: CrearEditarVacanteComponent,
+  },
+  {
+    path: 'vacantes-recomendadas',
+    component: VacantesRecomendadasComponent,
   },
   {
     path: '**',
