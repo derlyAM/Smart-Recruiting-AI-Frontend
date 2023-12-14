@@ -15,7 +15,9 @@ import { NavBarComponent } from '../../shared/components/nav-bar/nav-bar.compone
   styleUrl: './vacantes-recomendadas.component.scss'
 })
 export class VacantesRecomendadasComponent implements OnInit {
-  constructor(private recomendacionVacantes: RecomendacionVacantesIA, private router: Router) {}
+  constructor(
+    private recomendacionVacantes: RecomendacionVacantesIA, 
+    private router: Router) {}
 
   vacantes_recomendadas: DatosVacante[] = [];
 
@@ -27,7 +29,7 @@ export class VacantesRecomendadasComponent implements OnInit {
     this.vacantes_recomendadas = await firstValueFrom(this.recomendacionVacantes.obtenerRecomendacion());
   }
 
-  /*redireccionarAPublicarVacante() {
-    this.router.navigate(['/panel-administrativo/publicar-vacante']);
-  }*/
+  accionesPostularVacante(id_vacante: number) {
+    this.router.navigate(['/panel-administrativo/postular-vacantes/' + id_vacante]);
+  }
 }

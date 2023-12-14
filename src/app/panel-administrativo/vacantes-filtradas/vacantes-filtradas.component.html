@@ -117,8 +117,11 @@
   </section>
   @if (vacantes_filtradas.length != 0) {
     <main class="lista-vacantes">
-      @for (vacante of vacantes_filtradas; track vacante.titulo) {
-      <app-vacante-card [titulo]="vacante.titulo" [descripcion]="vacante.descripcion"/>
+      @for (vacante of vacantes_filtradas; track vacante.id) {
+      <app-vacante-card 
+        (click)="accionesPostularVacante(vacante.id)"
+        [titulo]="vacante.titulo" 
+        [descripcion]="vacante.descripcion"/>
       }
     </main>
     } @else {

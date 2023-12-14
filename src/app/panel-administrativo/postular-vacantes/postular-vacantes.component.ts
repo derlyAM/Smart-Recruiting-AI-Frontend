@@ -1,49 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { FiltrosVacante, DatosVacante } from '../../shared/dtos/gesionar-vacantes.dtos';
+import { DatosVacante } from '../../shared/dtos/gesionar-vacantes.dtos';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GestionarVacantesService } from '../../shared/services/gestionar-vacantes.service';
 import { firstValueFrom } from 'rxjs';
-import { VacanteCardComponent } from '../../shared/components/vacante-card/vacante-card.component';
 import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
 import { UbicacionService } from '../../shared/services/ubicacion.service';
 import { Ubicacion } from '../../shared/dtos/ubicacion.dto';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-vacantes-filtradas',
+  selector: 'app-postular-vacantes',
   standalone: true,
-  imports: [ReactiveFormsModule,VacanteCardComponent, FormsModule],
-  templateUrl: './vacantes-filtradas.component.html',
-  styleUrl: './vacantes-filtradas.component.scss'
+  imports: [ReactiveFormsModule, FormsModule],
+  templateUrl: './postular-vacantes.component.html',
+  styleUrl: './postular-vacantes.component.scss'
 })
-export class VacantesFiltradasComponent {
+export class PostularVacantesComponent {
   constructor(
     private gestionarVacantesService: GestionarVacantesService,
-    private router: ActivatedRoute,
-    private route: Router,
     private infoUsuario: InfoUsuarioService,
     private ubicacion: UbicacionService,
-    ) {}
+    private route: ActivatedRoute
+  ) {}
 
-  vacantes_filtradas: DatosVacante[] = [];
   ubicaciones: Ubicacion[] = [];
   estados: string[] = [];
   estadoSeleccionado = '';
   ciudadesDelEstadoSeleccinado: string[] = [];
   ciudadSeleccionada = '';
-  habilitarBotonObtenerVacantesFiltradas = true;
+
+  habilitarBotonPostularVacante = true;
 
   form = new FormGroup({
-    titulo: new FormControl('', [Validators.minLength(0)]),
-    fecha_publicacion: new FormControl('', [Validators.minLength(0)]),
-    fecha_cierre: new FormControl('', [Validators.minLength(0)]),
-    salario: new FormControl(0, [Validators.min(0)]),
+    titulo: new FormControl('', [Validators.minLength(5)]),
+    descripcion: new FormControl('', [Validators.minLength(1)]),
+    fecha_publicacion: new FormControl('', [Validators.minLength(1)]),
+    fecha_cierre: new FormControl('', [Validators.minLength(1)]),
+    salario: new FormControl(0, [Validators.min(1)]),
     remoto: new FormControl(),
-    modalidad: new FormControl('', [Validators.minLength(0)]),
-    area_trabajo: new FormControl('', [Validators.minLength(0)]),
-    annos_experiencia: new FormControl(0, [Validators.min(0)]),
+    modalidad: new FormControl('', [Validators.minLength(1)]),
+    area_trabajo: new FormControl('', [Validators.minLength(1)]),
+    annos_experiencia: new FormControl(0, [Validators.min(1)]),
   });
 
   async ngOnInit() {
@@ -79,10 +77,20 @@ export class VacantesFiltradasComponent {
     );
   }
 
+  private obtenerIdVacanteDeLaUrl(): number | null {
+    const idVacante = this.route.snapshot.paramMap.get('id');
+    if (idVacante) {
+      return parseInt(idVacante, 10);
+    } else {
+      return null;
+    }
+  }
 
-  async buscarVacante() {
-    const vacante: FiltrosVacante = {
+  async postularVacante() {
+    const vacante: DatosVacante = {
+      id : this.obtenerIdVacanteDeLaUrl() || 0,
       titulo: this.form.get('titulo')?.value || '',
+      descripcion: this.form.get('descripcion')?.value || '',
       fecha_publicacion: this.form.get('fecha_publicacion')?.value || '',
       fecha_cierre: this.form.get('fecha_cierre')?.value || '',
       salario: this.form.get('salario')?.value || 0,
@@ -91,22 +99,22 @@ export class VacantesFiltradasComponent {
       ubicacion: this.obtenerUbicacionDadoEstadoYCiudad(),
       area_trabajo: this.form.get('area_trabajo')?.value || '',
       annos_experiencia: this.form.get('annos_experiencia')?.value || 0,
+      usuario_reclutador: this.infoUsuario.obtenerInfoUsuario().id,
     };
 
     try {
-      //this.habilitarBotonObtenerVacantesFiltradas = false;
-    console.log(vacante);
-
-      this.vacantes_filtradas = await firstValueFrom(this.gestionarVacantesService.filtrarVacante(vacante))
+      this.habilitarBotonPostularVacante = false;
+      await this.postularVacanteEnServidor(vacante);
     } catch (error) {
       console.error(error);
     } finally {
-      //this.habilitarBotonObtenerVacantesFiltradas = true;
+      this.habilitarBotonPostularVacante = true;
     }
-  }  
+  }
 
-  accionesPostularVacante(id_vacante: number) {
-    this.route.navigate(['/panel-administrativo/postular-vacantes/' + id_vacante]);
+  private async postularVacanteEnServidor(vacante: DatosVacante) {
+    const idVacante = vacante.id;
+    await firstValueFrom(this.gestionarVacantesService.postularVacante(idVacante));
+    alert('Vacante postulada exitosamente');
   }
 }
-

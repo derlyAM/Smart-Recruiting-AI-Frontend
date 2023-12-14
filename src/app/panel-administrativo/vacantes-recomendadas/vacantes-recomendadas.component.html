@@ -13,7 +13,10 @@
     
     <main class="lista-vacantes ml-10">
         @for (vacante of vacantes_recomendadas; track vacante.id) {
-            <app-vacante-card [titulo]="vacante.titulo" [descripcion]="vacante.descripcion" />
+            <app-vacante-card 
+                (click)="accionesPostularVacante(vacante.id)"
+                [titulo]="vacante.titulo" 
+                [descripcion]="vacante.descripcion" />
         }
     </main>
 } @else {
