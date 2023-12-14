@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/internal/Observable';
-import { environment } from './../../../environments/environment';
+import { environment } from '../../../environments/environment.prod';
 
 @Injectable()
 export class DireccionServidorInterceptor implements HttpInterceptor {
