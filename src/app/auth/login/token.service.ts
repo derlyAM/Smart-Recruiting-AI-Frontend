@@ -1,7 +1,7 @@
 import { AlmacenamientoNavegadorService } from '../../shared/services/almacenamiento-navegador.service';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../environments/environment.prod';
 import * as CryptoJS from 'crypto-js';
 
 interface Token {
