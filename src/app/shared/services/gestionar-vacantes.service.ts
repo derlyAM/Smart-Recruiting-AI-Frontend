@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { DatosVacante } from '../dtos/gesionar-vacantes.dtos';
+import { DatosVacante, FiltrosVacante } from '../dtos/gesionar-vacantes.dtos';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -27,5 +27,10 @@ export class GestionarVacantesService {
 
   editarVacante(vacante: DatosVacante): Observable<any> {
     return this.http.put(`/vacantes/`, vacante);
+  }
+
+  filtrarVacante(vacante: FiltrosVacante): Observable<any> {
+    console.log("Recibida ruta")
+    return this.http.post(`/vacantes_filtradas/`, vacante);
   }
 }

@@ -56,4 +56,10 @@ export class InicioComponent {
   redirigirRecomendacionIA() {
     this.router.navigate(['vacantes-recomendadas'], { relativeTo: this.route });
   }
+
+  redirigirBusquedaEmpleo() {
+    this.router.navigate(['vacantes-filtradas'], { relativeTo: this.route });
+  }
 }
+
+
