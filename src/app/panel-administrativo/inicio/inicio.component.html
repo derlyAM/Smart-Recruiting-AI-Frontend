@@ -24,7 +24,7 @@
       />
       <span class="lista__opcion-card__titulo">Editar perfil</span>
     </section>
-    <section class="lista__opcion-card card-shadow">
+    <section class="lista__opcion-card card-shadow" (click)="descargarHojaDeVida()">
       <img
         class="lista__opcion-card__imagen"
         src="assets/images/panel-administrativo/hoja-de-vida.svg"
@@ -32,7 +32,7 @@
       />
       <span class="lista__opcion-card__titulo">Generar hoja de vida</span>
     </section>
-    <section class="lista__opcion-card card-shadow">
+    <section class="lista__opcion-card card-shadow" (click)="redirigirRecomendacionIA()">
       <img
         class="lista__opcion-card__imagen"
         src="assets/images/panel-administrativo/cerebro-electronico.svg"

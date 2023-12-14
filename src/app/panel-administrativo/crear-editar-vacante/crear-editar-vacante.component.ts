@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { CrearVacante } from '../../shared/dtos/gesionar-vacantes.dtos';
+import { DatosVacante } from '../../shared/dtos/gesionar-vacantes.dtos';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { GestionarVacantesService } from '../../shared/services/gestionar-vacantes.service';
 import { firstValueFrom } from 'rxjs';
 import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
 import { UbicacionService } from '../../shared/services/ubicacion.service';
 import { Ubicacion } from '../../shared/dtos/ubicacion.dto';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-crear-vacante',
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule],
-  templateUrl: './crear-vacante.component.html',
-  styleUrl: './crear-vacante.component.scss',
+  templateUrl: './crear-editar-vacante.component.html',
+  styleUrl: './crear-editar-vacante.component.scss',
 })
-export class CrearVacanteComponent implements OnInit {
+export class CrearEditarVacanteComponent implements OnInit {
   constructor(
     private gestionarVacantesService: GestionarVacantesService,
     private infoUsuario: InfoUsuarioService,
-    private ubicacion: UbicacionService
+    private ubicacion: UbicacionService,
+    private route: ActivatedRoute
   ) {}
 
   ubicaciones: Ubicacion[] = [];
@@ -27,7 +29,7 @@ export class CrearVacanteComponent implements OnInit {
   ciudadesDelEstadoSeleccinado: string[] = [];
   ciudadSeleccionada = '';
 
-  habilitarBotonCrearVacante = true;
+  habilitarBotonCrearEditarVacante = true;
 
   form = new FormGroup({
     titulo: new FormControl('', [Validators.minLength(5)]),
@@ -43,6 +45,7 @@ export class CrearVacanteComponent implements OnInit {
 
   async ngOnInit() {
     await this.obtenerTodasLasUbicaciones();
+    await this.cargarVacanteSiEsEdicion();
   }
 
   async obtenerTodasLasUbicaciones() {
@@ -56,7 +59,7 @@ export class CrearVacanteComponent implements OnInit {
     }
   }
 
-  obtenerCiudades() {
+  cargarCiudadesDelEstadoSeleccionado() {
     if (!this.estadoSeleccionado) {
       return;
     }
@@ -76,13 +79,55 @@ export class CrearVacanteComponent implements OnInit {
     );
   }
 
-  async crearVacante() {
+  private async cargarVacanteSiEsEdicion() {
+    const idVacante = this.obtenerIdVacanteDeLaUrl();
+    if (!idVacante) {
+      return;
+    }
+
+    const vacante = await firstValueFrom(this.gestionarVacantesService.obtenerVacante(idVacante));
+    if (!vacante) {
+      return;
+    }
+
+    this.form.setValue({
+      titulo: vacante.titulo,
+      descripcion: vacante.descripcion,
+      fecha_publicacion: vacante.fecha_publicacion,
+      fecha_cierre: vacante.fecha_cierre,
+      salario: vacante.salario,
+      remoto: vacante.remoto,
+      modalidad: vacante.modalidad,
+      area_trabajo: vacante.area_trabajo,
+      annos_experiencia: vacante.annos_experiencia,
+    });
+
+    this.estadoSeleccionado = this.ubicaciones.find((ubicacion) => ubicacion.id === vacante.ubicacion)?.estado || '';
+    this.cargarCiudadesDelEstadoSeleccionado();
+    this.ciudadSeleccionada = this.ubicaciones.find((ubicacion) => ubicacion.id === vacante.ubicacion)?.ciudad || '';
+  }
+
+  private obtenerIdVacanteDeLaUrl(): number | null {
+    const idVacante = this.route.snapshot.paramMap.get('id');
+    if (idVacante) {
+      return parseInt(idVacante, 10);
+    } else {
+      return null;
+    }
+  }
+
+  formularioEsParaCrearVacante(): boolean {
+    return this.obtenerIdVacanteDeLaUrl() === null;
+  }
+
+  async crearEditarVacante() {
     if (this.form.invalid || !this.estadoSeleccionado || !this.ciudadSeleccionada) {
       alert('Por favor, llene todos los campos');
       return;
     }
 
-    const crearVacante: CrearVacante = {
+    const vacante: DatosVacante = {
+      id : this.obtenerIdVacanteDeLaUrl() || 0,
       titulo: this.form.get('titulo')?.value || '',
       descripcion: this.form.get('descripcion')?.value || '',
       fecha_publicacion: this.form.get('fecha_publicacion')?.value || '',
@@ -97,13 +142,26 @@ export class CrearVacanteComponent implements OnInit {
     };
 
     try {
-      this.habilitarBotonCrearVacante = false;
-      await firstValueFrom(this.gestionarVacantesService.crearVacante(crearVacante));
-      alert('Vacante creada con éxito');
+      this.habilitarBotonCrearEditarVacante = false;
+      if (this.formularioEsParaCrearVacante()) {
+        await this.crearVacanteEnServidor(vacante);
+      } else {
+        await this.editarVacanteEnServidor(vacante);
+      }
     } catch (error) {
       console.error(error);
     } finally {
-      this.habilitarBotonCrearVacante = true;
+      this.habilitarBotonCrearEditarVacante = true;
     }
+  }
+
+  private async crearVacanteEnServidor(vacante: DatosVacante) {
+    await firstValueFrom(this.gestionarVacantesService.crearVacante(vacante));
+    alert('Vacante creada exitosamente');
+  }
+
+  private async editarVacanteEnServidor(vacante: DatosVacante) {
+    await firstValueFrom(this.gestionarVacantesService.editarVacante(vacante));
+    alert('Vacante editada exitosamente');
   }
 }
