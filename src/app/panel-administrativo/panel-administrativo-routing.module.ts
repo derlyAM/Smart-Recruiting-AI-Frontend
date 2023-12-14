@@ -7,6 +7,7 @@ import { EliminarVacanteComponent } from './eliminar-vacante/eliminar-vacante.co
 import { CrearEditarVacanteComponent } from './crear-editar-vacante/crear-editar-vacante.component';
 import { EditarVacanteComponent } from './editar-vacante/editar-vacante.component';
 
+
 const routes: Routes = [
   {
     path: '',
