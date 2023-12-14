@@ -1,1 +1,73 @@
-<p>vacantes-recomendadas works!</p>
+
+<nav class="bg-primary rounded-lg">
+    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div class="relative flex h-16 items-center justify-between">
+            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+                <!-- Mobile menu button-->
+                <button type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
+                    <span class="absolute -inset-0.5"></span>
+                    <span class="sr-only">Open main menu</span>
+                    <!--
+              Icon when menu is closed.
+  
+              Menu open: "hidden", Menu closed: "block"
+            -->
+                    <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                    <!--
+              Icon when menu is open.
+  
+              Menu open: "block", Menu closed: "hidden"
+            -->
+                    <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start border-black bg-primary">
+                <div class="hidden sm:ml-6 sm:block">
+                    <div class="flex space-x-4 bg-gray-700 rounded-lg border-black">
+                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                        <a href="panel-administrativo" class="flex items-center bg-white text-gray-700 rounded-md px-3 py-2 text-sm font-medium" aria-current="page">
+                            <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            Volver Inicio
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="sm:hidden" id="mobile-menu">
+        <div class="space-y-1 px-2 pb-3 pt-2">
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <a href="panel-administrativo" class="bg-gray-900 text-white block rounded-md px-3 py-2 text-base font-medium" aria-current="page">Volver Inicio</a>
+        </div>
+    </div>
+</nav>
+
+
+
+<h1 class="text-2xl font-semibold mb-8 mt-8 ml-6">Recomendacion de vacantes</h1>
+
+
+
+
+@if (vacantes_recomendadas.length != 0) {
+    <p class="mb-8 ml-6">Estas son las vacantes recomedadas</p>
+    
+    <main class="lista-vacantes ml-10">
+        @for (vacante of vacantes_recomendadas; track vacante.id) {
+            <app-vacante-card [titulo]="vacante.titulo" [descripcion]="vacante.descripcion" />
+        }
+    </main>
+} @else {
+    <h2 class="ml-6">Complete su perfil para acceder al servicio</h2>
+}
+
+<h1 class="text-2xl font-semibold mb-8 mt-8 ml-6"></h1>
+

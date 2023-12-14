@@ -5,6 +5,7 @@ import { GestionarVacantesComponent } from './gestionar-vacantes/gestionar-vacan
 import { VacantesRecomendadasComponent } from './vacantes-recomendadas/vacantes-recomendadas.component';
 import { CrearVacanteComponent } from './crear-vacante/crear-vacante.component';
 
+
 const routes: Routes = [
   {
     path: '',
