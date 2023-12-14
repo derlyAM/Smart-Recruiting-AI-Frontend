@@ -17,7 +17,7 @@ export class InfoUsuarioService {
    * Trae del servidor la informacion asociada del usuario.
    */
   async cargarInfoUsuario() {
-    const infoUsuario = await firstValueFrom(this.http.get<DatosUsuario>('/usuario/'));
+    const infoUsuario = await firstValueFrom(this.http.get<DatosUsuario>('https://api-smart-recruiting-ai.1.us-1.fl0.io/usuario'));
     this.navegador.guardarItem({
       indice: 'infoUsuario',
       dato: infoUsuario,
