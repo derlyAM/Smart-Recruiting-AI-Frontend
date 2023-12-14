@@ -12,7 +12,7 @@ import { Component } from '@angular/core';
 export class NavBarComponent {
   constructor(private location: Location){}
   get mostrar_nav_bar(){
-    const rutas = ['/panel-administrativo','/auth/login']
+    const rutas = ['/panel-administrativo','/auth/login', '/auth/register']
     const rutaActual = this.location.path()
     return !rutas.includes(rutaActual)
   }
