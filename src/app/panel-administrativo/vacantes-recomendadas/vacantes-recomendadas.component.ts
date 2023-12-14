@@ -4,12 +4,13 @@ import { Router } from '@angular/router';
 import { VacanteCardComponent } from '../../shared/components/vacante-card/vacante-card.component';
 import { RecomendacionVacantesIA } from '../../shared/services/recomendaciones-ia.service';
 import { DatosVacante } from '../../shared/dtos/gesionar-vacantes.dtos';
+import { NavBarComponent } from '../../shared/components/nav-bar/nav-bar.component';
 
 
 @Component({
   selector: 'app-vacantes-recomendadas',
   standalone: true,
-  imports: [VacanteCardComponent],
+  imports: [VacanteCardComponent,NavBarComponent],
   templateUrl: './vacantes-recomendadas.component.html',
   styleUrl: './vacantes-recomendadas.component.scss'
 })
