@@ -19,6 +19,9 @@ interface ObtenerDatoLocalStorage extends Partial<IndiceLocalStorage> {
   providedIn: 'root',
 })
 export class AlmacenamientoNavegadorService {
+
+
+
   guardarItem(parametros: DatoLocalStorage): void {
     if (parametros.tipoDato === 'string') {
       localStorage.setItem(parametros.indice, parametros.dato as string);
@@ -34,6 +37,7 @@ export class AlmacenamientoNavegadorService {
   obtenerItem(parametros: ObtenerDatoLocalStorage): string | object {
     if (parametros.tipoDato === 'string') {
       return localStorage.getItem(parametros.indice) as string;
+      
     } else if (parametros.tipoDato === 'object') {
       return JSON.parse(localStorage.getItem(parametros.indice) as string);
     }
