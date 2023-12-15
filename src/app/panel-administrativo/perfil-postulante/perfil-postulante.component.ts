@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
 import { firstValueFrom } from 'rxjs';
 import { PerfilPostulanteService } from './perfil-postulante.service';
-import { HttpClient } from '@angular/common/http';
+import { PerfilPostulanteDto } from './perfil-postulante.dtos';
 
 @Component({
   selector: 'app-perfil-postulante',
@@ -36,6 +36,8 @@ export class PerfilPostulanteComponent implements OnInit {
   });
 
   habilitarBotonGuardarCambios = true;
+  usuario!: DatosUsuario;
+  perfil_postulante!: PerfilPostulanteDto;
 
   async ngOnInit() {
     await this.cargarTodosLosDatosDelPostulante();
@@ -49,14 +51,14 @@ export class PerfilPostulanteComponent implements OnInit {
   }
 
   private async obtenerNombreUsuario() {
-    const nombre = (await firstValueFrom(this.infoUsuario.obtenerUsuarioDeBaseDeDatos())).nombres;
-    this.form.get('nombre')?.setValue(nombre);
+    this.usuario = await firstValueFrom(this.infoUsuario.obtenerUsuarioDeBaseDeDatos());
+    this.form.get('nombre')?.setValue(this.usuario.nombres);
   }
 
   private async obtenerDatosPostulante() {
-    const postulante = await firstValueFrom(this.postulanteService.obtenerPerfilPostulante());
-    this.form.get('habilidades')?.setValue(postulante.habilidades);
-    this.form.get('idiomas')?.setValue(postulante.idiomas);
+    this.perfil_postulante = await firstValueFrom(this.postulanteService.obtenerPerfilPostulante());
+    this.form.get('habilidades')?.setValue(this.perfil_postulante.habilidades);
+    this.form.get('idiomas')?.setValue(this.perfil_postulante.idiomas);
   }
 
   private async obtenerDatosExperiencia() {
@@ -82,25 +84,22 @@ export class PerfilPostulanteComponent implements OnInit {
     this.form.get('reconocimientos')?.setValue(educacion.reconocimientos);
   }
 
-  async guardarPerfilPostulante() {
+  async actualizarDatosDelUsurio() {
     console.log(this.form.valid);
     console.log(this.form.value);
     await this.actualizarUsuario();
+    await this.actualizarPerfilPostulante();
     await this.cargarTodosLosDatosDelPostulante();
   }
 
   private async actualizarUsuario() {
-    const usuario: DatosUsuario = {
-      id: this.infoUsuario.obtenerInfoUsuario().id,
-      cedula: 0,
-      nombres: this.form.get('nombre')?.value || '',
-      apellidos: '',
-      fecha_nacimiento: '',
-      lugar_residencia: 0,
-      correo: '',
-      rol: 0,
-      passwd: '',
-    };
-    await firstValueFrom(this.infoUsuario.actualizarUsuario(usuario));
+    this.usuario.nombres = this.form.get('nombre')?.value || '';
+    await firstValueFrom(this.infoUsuario.actualizarUsuario(this.usuario));
+  }
+
+  private async actualizarPerfilPostulante() {
+    this.perfil_postulante.habilidades = this.form.get('habilidades')?.value || '';
+    this.perfil_postulante.idiomas = this.form.get('idiomas')?.value || '';
+    await firstValueFrom(this.postulanteService.actualizarPerfilPostulante(this.perfil_postulante));
   }
 }

@@ -1,4 +1,6 @@
 export interface PerfilPostulanteDto {
+  id: number
+  id_usuario: number
   resumen: string 
   habilidades: string 
   idiomas: string 
