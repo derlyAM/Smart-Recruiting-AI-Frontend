@@ -9,7 +9,7 @@ import { EditarVacanteComponent } from './editar-vacante/editar-vacante.componen
 import { VacantesFiltradasComponent } from './vacantes-filtradas/vacantes-filtradas.component';
 import { PostularVacantesComponent } from './postular-vacantes/postular-vacantes.component';
 import { VacantesAplicadasComponent } from './vacantes-aplicadas/vacantes-aplicadas.component';
-
+import {PerfilPostulanteComponent} from './perfil-postulante/perfil-postulante.component';
 
 const routes: Routes = [
   {
@@ -51,6 +51,10 @@ const routes: Routes = [
   {
     path: 'vacantes-aplicadas',
     component: VacantesAplicadasComponent,
+  },
+  {
+    path: 'perfil-postulante',
+    component: PerfilPostulanteComponent,
   },
   {
     path: '**',
