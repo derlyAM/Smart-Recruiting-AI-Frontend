@@ -1,0 +1,16 @@
+<h1 class="text-2xl font-semibold mb-8">Vacantes aplicadas</h1>
+
+
+@if (vacantes_aplicadas.length != 0) {
+    <p class="mb-8">Estas son las vacantes a las que has aplicado</p>
+    <main class="lista-vacantes">
+    @for (vacante of vacantes_aplicadas; track vacante.id) {
+        <app-vacante-card
+            [titulo]="vacante.titulo"
+            [descripcion]="vacante.descripcion"
+        />
+    }
+    </main>
+} @else {
+    <h2>No hay vacantes aplicadas</h2>
+}

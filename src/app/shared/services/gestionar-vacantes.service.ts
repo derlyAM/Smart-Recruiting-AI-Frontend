@@ -36,5 +36,9 @@ export class GestionarVacantesService {
   postularVacante(id: number): Observable<Postulacion> {
     return this.http.post<Postulacion>(`/postular_a_vacante/${id}`, {});
   }
+
+  obtenerVacantesAplicadas(): Observable<DatosVacante[]> {
+    return this.http.get<DatosVacante[]>(`/postulaciones`);
+  }
   
 }

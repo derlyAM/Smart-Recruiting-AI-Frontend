@@ -154,6 +154,7 @@ export class PostularVacantesComponent {
       await this.postularVacanteEnServidor(idVacante)
     } catch (error) {
       console.error(error);
+      alert('Ya aplicaste esta vacante');
     } finally {
       this.habilitarBotonPostularVacante = true;
     }
