@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
 import { firstValueFrom } from 'rxjs';
 import { PerfilPostulanteService } from './perfil-postulante.service';
-import { ExperienciaDto, PerfilPostulanteDto } from './perfil-postulante.dtos';
+import { EducacionDto, ExperienciaDto, PerfilPostulanteDto } from './perfil-postulante.dtos';
 
 @Component({
   selector: 'app-perfil-postulante',
@@ -39,6 +39,7 @@ export class PerfilPostulanteComponent implements OnInit {
   usuario!: DatosUsuario;
   perfil_postulante!: PerfilPostulanteDto;
   experiencia!: ExperienciaDto;
+  educacion!: EducacionDto;
 
   async ngOnInit() {
     await this.cargarTodosLosDatosDelPostulante();
@@ -75,14 +76,14 @@ export class PerfilPostulanteComponent implements OnInit {
 
   private async obtenerDatosEducacion() {
     const respuesta = await firstValueFrom(this.postulanteService.obtenerEducacionPostulante());
-    const educacion = respuesta[0];
-    this.form.get('titulo_obtenido')?.setValue(educacion.titulo_obtenido);
-    this.form.get('institucion')?.setValue(educacion.titulo_obtenido);
-    this.form.get('area_de_estudio')?.setValue(educacion.titulo_obtenido);
-    this.form.get('fecha_inicio_estudio')?.setValue(educacion.fecha_inicio);
-    this.form.get('fecha_finalizacion_estudio')?.setValue(educacion.fecha_finalizacion);
-    this.form.get('promedio_ponderado')?.setValue(educacion.promedio_ponderado);
-    this.form.get('reconocimientos')?.setValue(educacion.reconocimientos);
+    this.educacion = respuesta[0];
+    this.form.get('titulo_obtenido')?.setValue(this.educacion.titulo_obtenido);
+    this.form.get('institucion')?.setValue(this.educacion.institucion);
+    this.form.get('area_de_estudio')?.setValue(this.educacion.area_de_estudio);
+    this.form.get('fecha_inicio_estudio')?.setValue(this.educacion.fecha_inicio);
+    this.form.get('fecha_finalizacion_estudio')?.setValue(this.educacion.fecha_finalizacion);
+    this.form.get('promedio_ponderado')?.setValue(this.educacion.promedio_ponderado);
+    this.form.get('reconocimientos')?.setValue(this.educacion.reconocimientos);
   }
 
   async actualizarDatosDelUsurio() {
@@ -91,6 +92,7 @@ export class PerfilPostulanteComponent implements OnInit {
       await this.actualizarUsuario();
       await this.actualizarPerfilPostulante();
       await this.actualizarExperienciaPostulante();
+      await this.actualizarEducacionPostulante();
       alert('Datos actualizados con éxito');
     } catch (error) {
       alert('Hubo un error al actualizar los datos');
@@ -119,5 +121,16 @@ export class PerfilPostulanteComponent implements OnInit {
     this.experiencia.fecha_finalizacion = this.form.get('fecha_finalizacion')?.value || '';
     this.experiencia.responsabilidades = this.form.get('responsabilidades')?.value || '';
     await firstValueFrom(this.postulanteService.actualizarExperienciaPostulante(this.experiencia));
+  }
+
+  private async actualizarEducacionPostulante() {
+    this.educacion.titulo_obtenido = this.form.get('titulo_obtenido')?.value || '';
+    this.educacion.institucion = this.form.get('institucion')?.value || '';
+    this.educacion.area_de_estudio = this.form.get('area_de_estudio')?.value || '';
+    this.educacion.fecha_inicio = this.form.get('fecha_inicio_estudio')?.value || '';
+    this.educacion.fecha_finalizacion = this.form.get('fecha_finalizacion_estudio')?.value || '';
+    this.educacion.promedio_ponderado = this.form.get('promedio_ponderado')?.value || 0;
+    this.educacion.reconocimientos = this.form.get('reconocimientos')?.value || '';
+    await firstValueFrom(this.postulanteService.actualizarEducacionPostulante(this.educacion));
   }
 }

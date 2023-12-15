@@ -17,6 +17,7 @@ export interface ExperienciaDto {
   responsabilidades: string
 }
 export interface EducacionDto {
+  id: number
   titulo_obtenido: string
   institucion: string
   area_de_estudio: string

@@ -28,4 +28,8 @@ export class PerfilPostulanteService {
   actualizarExperienciaPostulante(experienciaActualizada: ExperienciaDto): Observable<ExperienciaDto> {
     return this.http.put<ExperienciaDto>('/experiencia', experienciaActualizada);
   }
+
+  actualizarEducacionPostulante(educacionActualizada: EducacionDto): Observable<EducacionDto> {
+    return this.http.put<EducacionDto>('/historial-academico', educacionActualizada);
+  }
 }
