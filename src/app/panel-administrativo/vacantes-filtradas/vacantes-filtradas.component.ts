@@ -94,14 +94,10 @@ export class VacantesFiltradasComponent {
     };
 
     try {
-      //this.habilitarBotonObtenerVacantesFiltradas = false;
-    console.log(vacante);
-
       this.vacantes_filtradas = await firstValueFrom(this.gestionarVacantesService.filtrarVacante(vacante))
     } catch (error) {
       console.error(error);
     } finally {
-      //this.habilitarBotonObtenerVacantesFiltradas = true;
     }
   }  
 

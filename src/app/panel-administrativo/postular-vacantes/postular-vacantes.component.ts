@@ -19,7 +19,6 @@ import { ActivatedRoute } from '@angular/router';
 export class PostularVacantesComponent {
   constructor(
     private gestionarVacantesService: GestionarVacantesService,
-    private infoUsuario: InfoUsuarioService,
     private ubicacion: UbicacionService,
     private route: ActivatedRoute
   ) {}
@@ -30,7 +29,7 @@ export class PostularVacantesComponent {
   ciudadesDelEstadoSeleccinado: string[] = [];
   ciudadSeleccionada = '';
 
-  habilitarBotonPostularVacante = true;
+  habilitarBotonPostularVacante = false;
 
   form = new FormGroup({
     titulo: new FormControl('', [Validators.minLength(5)]),
@@ -40,12 +39,14 @@ export class PostularVacantesComponent {
     salario: new FormControl(0, [Validators.min(1)]),
     remoto: new FormControl(),
     modalidad: new FormControl('', [Validators.minLength(1)]),
+    ubicacion: new FormControl('', [Validators.minLength(1)]),
     area_trabajo: new FormControl('', [Validators.minLength(1)]),
     annos_experiencia: new FormControl(0, [Validators.min(1)]),
   });
 
   async ngOnInit() {
-    await this.obtenerTodasLasUbicaciones();
+      await this.obtenerTodasLasUbicaciones();
+      await this.mostrarDatosDeVacante(); // Llama a la función que muestra los datos de la vacante
   }
 
   async obtenerTodasLasUbicaciones() {
@@ -86,35 +87,80 @@ export class PostularVacantesComponent {
     }
   }
 
-  async postularVacante() {
-    const vacante: DatosVacante = {
-      id : this.obtenerIdVacanteDeLaUrl() || 0,
-      titulo: this.form.get('titulo')?.value || '',
-      descripcion: this.form.get('descripcion')?.value || '',
-      fecha_publicacion: this.form.get('fecha_publicacion')?.value || '',
-      fecha_cierre: this.form.get('fecha_cierre')?.value || '',
-      salario: this.form.get('salario')?.value || 0,
-      remoto: this.form.get('remoto')?.value,
-      modalidad: this.form.get('modalidad')?.value || '',
-      ubicacion: this.obtenerUbicacionDadoEstadoYCiudad(),
-      area_trabajo: this.form.get('area_trabajo')?.value || '',
-      annos_experiencia: this.form.get('annos_experiencia')?.value || 0,
-      usuario_reclutador: this.infoUsuario.obtenerInfoUsuario().id,
-    };
+  async mostrarDatosDeVacante() {
+    const idVacante = this.obtenerIdVacanteDeLaUrl(); 
+    if (!idVacante) {
+      console.error('El ID de la vacante no es válido');
+      return;
+    }
+  
+    try {  
+      const vacanteObtenida$ = this.gestionarVacantesService.obtenerVacante(idVacante);
+      vacanteObtenida$.subscribe( async (vacanteObtenida) => {
+        if (vacanteObtenida) {
+          const vacante: DatosVacante = {
+            id: idVacante,
+            titulo: vacanteObtenida.titulo,
+            descripcion: vacanteObtenida.descripcion,
+            fecha_publicacion: vacanteObtenida.fecha_publicacion,
+            fecha_cierre: vacanteObtenida.fecha_cierre,
+            salario: vacanteObtenida.salario,
+            remoto: vacanteObtenida.remoto,
+            modalidad: vacanteObtenida.modalidad,
+            ubicacion: vacanteObtenida.ubicacion,
+            area_trabajo: vacanteObtenida.area_trabajo,
+            annos_experiencia: vacanteObtenida.annos_experiencia,
+            usuario_reclutador: vacanteObtenida.usuario_reclutador,
+          };
 
+          this.form.patchValue({
+            titulo: vacanteObtenida.titulo,
+            descripcion: vacanteObtenida.descripcion,
+            fecha_publicacion: vacanteObtenida.fecha_publicacion,
+            fecha_cierre: vacanteObtenida.fecha_cierre,
+            salario: vacanteObtenida.salario,
+            remoto: vacanteObtenida.remoto,
+            modalidad: vacanteObtenida.modalidad,
+            ubicacion: await this.obtenerNombreUbicacion(vacanteObtenida.ubicacion),
+            area_trabajo: vacanteObtenida.area_trabajo,
+            annos_experiencia: vacanteObtenida.annos_experiencia,
+          });
+        } else {
+          console.error('No se pudo obtener la vacante del servidor');
+        }
+      });
+    } catch (error) {
+      console.error('Error al obtener la vacante del servidor:', error);
+    }finally {
+      this.habilitarBotonPostularVacante = true;
+    }
+  }
+
+  private async obtenerNombreUbicacion(idUbicacion: number) {
+    const ubicaciones = await firstValueFrom(this.ubicacion.obtenerUbicaciones());
+    const ubicacionVacante = ubicaciones.find(ubicacion => ubicacion.id == idUbicacion);
+    return ubicacionVacante?.estado + ' - ' + ubicacionVacante?.ciudad;
+  }
+
+  async postularVacante() {
+    const idVacante = this.obtenerIdVacanteDeLaUrl(); 
+    if (!idVacante) {
+      console.error('El ID de la vacante no es válido');
+      return;
+    }
+  
     try {
       this.habilitarBotonPostularVacante = false;
-      await this.postularVacanteEnServidor(vacante);
+      await this.postularVacanteEnServidor(idVacante)
     } catch (error) {
       console.error(error);
     } finally {
       this.habilitarBotonPostularVacante = true;
     }
   }
-
-  private async postularVacanteEnServidor(vacante: DatosVacante) {
-    const idVacante = vacante.id;
-    await firstValueFrom(this.gestionarVacantesService.postularVacante(idVacante));
+  
+  private async postularVacanteEnServidor(id: number) {
+    await firstValueFrom(this.gestionarVacantesService.postularVacante(id));
     alert('Vacante postulada exitosamente');
   }
-}
+}  

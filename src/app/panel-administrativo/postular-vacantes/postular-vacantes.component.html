@@ -1,136 +1,22 @@
-<h1 class="text-2xl font-semibold mb-8">Postular a vacante</h1>
+<br><br><br><h1 class="text-2xl font-semibold mb-8">Postular a vacante</h1><br><hr><br><br>
 
-<form [formGroup]="form" style="width: 500px">
-  <label for="titulo">Titulo</label>
-  <input
-    type="titulo"
-    id="titulo"
-    class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-    formControlName="titulo"
-    placeholder="Se busca. . ."
-    required
-  />
-
-  <label for="descripcion">Descripcion</label>
-  <input
-    type="text"
-    id="descripcion"
-    class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-    formControlName="descripcion"
-    placeholder="Trata sobre. . ."
-    required
-  />
-
-  <label for="fecha_publicacion">Fecha publicacion</label>
-  <input
-    type="date"
-    id="fecha_publicacion"
-    class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-    formControlName="fecha_publicacion"
-    required
-  />
-
-  <label for="fecha_cierre">Fecha cierre</label>
-  <input
-    type="date"
-    id="fecha_cierre"
-    class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-    formControlName="fecha_cierre"
-    required
-  />
-
-  <label for="salario">Salario</label>
-  <input
-    type="number"
-    id="salario"
-    class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-    formControlName="salario"
-    required
-  />
-
-  <label for="remoto">Remoto</label>
-  <input
-    type="checkbox"
-    id="remoto"
-    class="border border-gray-300 text-sm rounded-lg ml-3 p-2.5 input"
-    formControlName="remoto"
-  />
-
-  <label for="modalidad" class="block w-full">Modalidad</label>
-  <select
-    id="modalidad"
-    class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-    formControlName="modalidad"
-  >
-    <option value="Medio tiempo">Medio tiempo</option>
-    <option value="Temporal">Temporal</option>
-    <option value="Tiempo completo">Tiempo completo</option>
-    <option value="Practica">Practica</option>
-  </select>
-
-  <label for="remoto">Ubicacion</label>
-  <section style="display: flex; max-width: 500px; width: 100%; justify-content: space-between">
-    <section style="width: 200px">
-      <label for="estado">Estado</label>
-      <select
-        id="estado"
-        class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-        (change)="cargarCiudadesDelEstadoSeleccionado()"
-        [(ngModel)]="estadoSeleccionado"
-        [ngModelOptions]="{ standalone: true }"
-      >
-        @for (estado of estados; track estado) {
-        <option [value]="estado">{{ estado }}</option>
-        }
-      </select>
-    </section>
-    <section style="width: 200px">
-      <label for="ciudad">Ciudad</label>
-      <select
-        id="ciudad"
-        class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-        [(ngModel)]="ciudadSeleccionada"
-        [ngModelOptions]="{ standalone: true }"
-      >
-        @for (ciudad of ciudadesDelEstadoSeleccinado; track ciudad) {
-        <option [value]="ciudad">{{ ciudad }}</option>
-        }
-      </select>
-    </section>
-  </section>
-
-  <label for="area_trabajo" class="block w-full">Area trabajo</label>
-  <select
-    id="area_trabajo"
-    class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-    formControlName="area_trabajo"
-  >
-    <option value="Recursos Humanos">Recursos Humanos</option>
-    <option value="Tecnología">Tecnología</option>
-    <option value="Medio Ambiente">Medio Ambiente</option>
-    <option value="Comunicación">Comunicación</option>
-    <option value="Redes">Redes</option>
-    <option value="Industria">Industria</option>
-    <option value="Diseño">Diseño</option>
-    <option value="Finanzas">Finanzas</option>
-    <option value="Administración">Administración</option>
-    <option value="Ventas">Ventas</option>
-  </select>
-
-  <label for="annos_experiencia">Años experiencia</label>
-  <input
-    type="number"
-    id="annos_experiencia"
-    class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
-    formControlName="annos_experiencia"
-    required
-  />
+<div style="width: 500px">
+  <p><strong>Titulo:</strong> {{ form.get('titulo')?.value }}</p>
+  <p><strong>Descripcion:</strong> {{ form.get('descripcion')?.value }}</p>
+  <p><strong>Fecha publicacion:</strong> {{ form.get('fecha_publicacion')?.value }}</p>
+  <p><strong>Fecha cierre:</strong> {{ form.get('fecha_cierre')?.value }}</p>
+  <p><strong>Salario:</strong> {{ form.get('salario')?.value }}</p>
+  <p><strong>Remoto:</strong> {{ form.get('remoto')?.value ? 'Sí' : 'No' }}</p>
+  <p><strong>Modalidad:</strong> {{ form.get('modalidad')?.value }}</p>
+  <p><strong>Ubicacion:</strong> {{ form.get('ubicacion')?.value }}</p>
+  <p><strong>Area de trabajo:</strong> {{ form.get('area_trabajo')?.value }}</p>
+  <p><strong>Años de experiencia:</strong> {{ form.get('annos_experiencia')?.value }}</p>
 
   <button
     type="button"
     class="bg-primary font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-8 mt-8 focus:outline-none"
-    style="color: white"
+    style="color: white"   
     [disabled]="!habilitarBotonPostularVacante"
     (click)="postularVacante()"> Postular
   </button>
-</form>
+</div>
