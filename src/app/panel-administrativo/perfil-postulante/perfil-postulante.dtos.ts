@@ -7,15 +7,16 @@ export interface PerfilPostulanteDto {
   link: string 
   referencias: string 
   }
-export interface ExperienciaDto{
-  nombre_empresa:string
+export interface ExperienciaDto {
+  id: number
+  nombre_empresa: string
   contacto: string
   tipo_cargo: string
   fecha_inicio: string
   fecha_finalizacion: string
   responsabilidades: string
 }
-export interface EducacionDto{
+export interface EducacionDto {
   titulo_obtenido: string
   institucion: string
   area_de_estudio: string

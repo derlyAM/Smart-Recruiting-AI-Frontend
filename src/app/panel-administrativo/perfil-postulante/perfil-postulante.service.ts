@@ -24,4 +24,8 @@ export class PerfilPostulanteService {
   actualizarPerfilPostulante(perfilActualizado: PerfilPostulanteDto): Observable<PerfilPostulanteDto> {
     return this.http.put<PerfilPostulanteDto>('/perfil-postulante', perfilActualizado);
   }
+
+  actualizarExperienciaPostulante(experienciaActualizada: ExperienciaDto): Observable<ExperienciaDto> {
+    return this.http.put<ExperienciaDto>('/experiencia', experienciaActualizada);
+  }
 }

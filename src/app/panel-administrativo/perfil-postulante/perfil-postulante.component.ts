@@ -4,7 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
 import { firstValueFrom } from 'rxjs';
 import { PerfilPostulanteService } from './perfil-postulante.service';
-import { PerfilPostulanteDto } from './perfil-postulante.dtos';
+import { ExperienciaDto, PerfilPostulanteDto } from './perfil-postulante.dtos';
 
 @Component({
   selector: 'app-perfil-postulante',
@@ -38,6 +38,7 @@ export class PerfilPostulanteComponent implements OnInit {
   habilitarBotonGuardarCambios = true;
   usuario!: DatosUsuario;
   perfil_postulante!: PerfilPostulanteDto;
+  experiencia!: ExperienciaDto;
 
   async ngOnInit() {
     await this.cargarTodosLosDatosDelPostulante();
@@ -63,13 +64,13 @@ export class PerfilPostulanteComponent implements OnInit {
 
   private async obtenerDatosExperiencia() {
     const respuesta = await firstValueFrom(this.postulanteService.obtenerExperienciaPostulante());
-    const experiencia = respuesta[0];
-    this.form.get('nombre_empresa')?.setValue(experiencia.nombre_empresa);
-    this.form.get('contacto')?.setValue(experiencia.contacto);
-    this.form.get('tipo_cargo')?.setValue(experiencia.tipo_cargo);
-    this.form.get('fecha_inicio')?.setValue(experiencia.fecha_inicio);
-    this.form.get('fecha_finalizacion')?.setValue(experiencia.fecha_finalizacion);
-    this.form.get('responsabilidades')?.setValue(experiencia.responsabilidades);
+    this.experiencia = respuesta[0];
+    this.form.get('nombre_empresa')?.setValue(this.experiencia.nombre_empresa);
+    this.form.get('contacto')?.setValue(this.experiencia.contacto);
+    this.form.get('tipo_cargo')?.setValue(this.experiencia.tipo_cargo);
+    this.form.get('fecha_inicio')?.setValue(this.experiencia.fecha_inicio);
+    this.form.get('fecha_finalizacion')?.setValue(this.experiencia.fecha_finalizacion);
+    this.form.get('responsabilidades')?.setValue(this.experiencia.responsabilidades);
   }
 
   private async obtenerDatosEducacion() {
@@ -85,11 +86,16 @@ export class PerfilPostulanteComponent implements OnInit {
   }
 
   async actualizarDatosDelUsurio() {
-    console.log(this.form.valid);
-    console.log(this.form.value);
-    await this.actualizarUsuario();
-    await this.actualizarPerfilPostulante();
-    await this.cargarTodosLosDatosDelPostulante();
+    try {
+      await this.actualizarUsuario();
+      await this.actualizarPerfilPostulante();
+      await this.actualizarExperienciaPostulante();
+      alert('Datos actualizados con éxito');
+    } catch (error) {
+      alert('Hubo un error al actualizar los datos');
+    } finally {
+      await this.cargarTodosLosDatosDelPostulante();
+    }
   }
 
   private async actualizarUsuario() {
@@ -101,5 +107,15 @@ export class PerfilPostulanteComponent implements OnInit {
     this.perfil_postulante.habilidades = this.form.get('habilidades')?.value || '';
     this.perfil_postulante.idiomas = this.form.get('idiomas')?.value || '';
     await firstValueFrom(this.postulanteService.actualizarPerfilPostulante(this.perfil_postulante));
+  }
+
+  private async actualizarExperienciaPostulante() {
+    this.experiencia.nombre_empresa = this.form.get('nombre_empresa')?.value || '';
+    this.experiencia.contacto = this.form.get('contacto')?.value || '';
+    this.experiencia.tipo_cargo = this.form.get('tipo_cargo')?.value || '';
+    this.experiencia.fecha_inicio = this.form.get('fecha_inicio')?.value || '';
+    this.experiencia.fecha_finalizacion = this.form.get('fecha_finalizacion')?.value || '';
+    this.experiencia.responsabilidades = this.form.get('responsabilidades')?.value || '';
+    await firstValueFrom(this.postulanteService.actualizarExperienciaPostulante(this.experiencia));
   }
 }
