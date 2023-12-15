@@ -1,0 +1,22 @@
+<br><br><br><h1 class="text-2xl font-semibold mb-8">Postular a vacante</h1><br><hr><br><br>
+
+<div style="width: 500px">
+  <p><strong>Titulo:</strong> {{ form.get('titulo')?.value }}</p>
+  <p><strong>Descripcion:</strong> {{ form.get('descripcion')?.value }}</p>
+  <p><strong>Fecha publicacion:</strong> {{ form.get('fecha_publicacion')?.value }}</p>
+  <p><strong>Fecha cierre:</strong> {{ form.get('fecha_cierre')?.value }}</p>
+  <p><strong>Salario:</strong> {{ form.get('salario')?.value }}</p>
+  <p><strong>Remoto:</strong> {{ form.get('remoto')?.value ? 'Sí' : 'No' }}</p>
+  <p><strong>Modalidad:</strong> {{ form.get('modalidad')?.value }}</p>
+  <p><strong>Ubicacion:</strong> {{ form.get('ubicacion')?.value }}</p>
+  <p><strong>Area de trabajo:</strong> {{ form.get('area_trabajo')?.value }}</p>
+  <p><strong>Años de experiencia:</strong> {{ form.get('annos_experiencia')?.value }}</p>
+
+  <button
+    type="button"
+    class="bg-primary font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-8 mt-8 focus:outline-none"
+    style="color: white"   
+    [disabled]="!habilitarBotonPostularVacante"
+    (click)="postularVacante()"> Postular
+  </button>
+</div>

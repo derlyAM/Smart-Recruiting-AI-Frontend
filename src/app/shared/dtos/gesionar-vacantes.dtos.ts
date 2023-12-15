@@ -25,4 +25,10 @@ export interface FiltrosVacante {
   annos_experiencia: number;
 }
 
+export interface Postulacion {
+  id: number;
+  id_vacante: number;
+  id_perfil_postulante: number;
+}
+
 export interface CrearVacante extends Omit<DatosVacante, 'id'> {}

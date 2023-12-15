@@ -7,6 +7,8 @@ import { EliminarVacanteComponent } from './eliminar-vacante/eliminar-vacante.co
 import { CrearEditarVacanteComponent } from './crear-editar-vacante/crear-editar-vacante.component';
 import { EditarVacanteComponent } from './editar-vacante/editar-vacante.component';
 import { VacantesFiltradasComponent } from './vacantes-filtradas/vacantes-filtradas.component';
+import { PostularVacantesComponent } from './postular-vacantes/postular-vacantes.component';
+import { VacantesAplicadasComponent } from './vacantes-aplicadas/vacantes-aplicadas.component';
 import {PerfilPostulanteComponent} from './perfil-postulante/perfil-postulante.component';
 
 const routes: Routes = [
@@ -41,6 +43,14 @@ const routes: Routes = [
   {
     path: 'vacantes-filtradas',
     component: VacantesFiltradasComponent,
+  },
+  {
+    path: 'postular-vacantes/:id',
+    component: PostularVacantesComponent,
+  },
+  {
+    path: 'vacantes-aplicadas',
+    component: VacantesAplicadasComponent,
   },
   {
     path: 'perfil-postulante',

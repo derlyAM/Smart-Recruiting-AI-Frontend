@@ -8,6 +8,8 @@ import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
 import { UbicacionService } from '../../shared/services/ubicacion.service';
 import { Ubicacion } from '../../shared/dtos/ubicacion.dto';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-vacantes-filtradas',
@@ -18,9 +20,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class VacantesFiltradasComponent {
   constructor(
-    private gestionVacantes: GestionarVacantesService, 
     private gestionarVacantesService: GestionarVacantesService,
-    private route: ActivatedRoute,
+    private router: ActivatedRoute,
+    private route: Router,
     private infoUsuario: InfoUsuarioService,
     private ubicacion: UbicacionService,
     ) {}
@@ -92,33 +94,15 @@ export class VacantesFiltradasComponent {
     };
 
     try {
-      //this.habilitarBotonObtenerVacantesFiltradas = false;
-    console.log(vacante);
-
       this.vacantes_filtradas = await firstValueFrom(this.gestionarVacantesService.filtrarVacante(vacante))
     } catch (error) {
       console.error(error);
     } finally {
-      //this.habilitarBotonObtenerVacantesFiltradas = true;
     }
-  }
+  }  
 
-  /**
-   * 
-   * @param vacante 
-   * 
-  private async filtrarVacanteEnServidor(vacante: FiltrosVacante) {
-    const observable = this.gestionarVacantesService.obtenerVacante(vacante.id);
-  
-    observable.pipe(toArray()).subscribe(
-      (valores: any[]) => {
-        // Hacer algo con todos los valores emitidos
-        console.log(valores);
-        alert('Vacantes encontradas exitosamente');
-      }
-    );
+  accionesPostularVacante(id_vacante: number) {
+    this.route.navigate(['/panel-administrativo/postular-vacantes/' + id_vacante]);
   }
-   */
-  
 }
 
