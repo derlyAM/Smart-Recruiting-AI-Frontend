@@ -87,6 +87,7 @@ export class PerfilPostulanteComponent implements OnInit {
 
   async actualizarDatosDelUsurio() {
     try {
+      this.habilitarBotonGuardarCambios = false;
       await this.actualizarUsuario();
       await this.actualizarPerfilPostulante();
       await this.actualizarExperienciaPostulante();
@@ -95,6 +96,7 @@ export class PerfilPostulanteComponent implements OnInit {
       alert('Hubo un error al actualizar los datos');
     } finally {
       await this.cargarTodosLosDatosDelPostulante();
+      this.habilitarBotonGuardarCambios = true;
     }
   }
 
