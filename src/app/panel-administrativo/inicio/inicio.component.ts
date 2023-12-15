@@ -52,8 +52,22 @@ export class InicioComponent {
   redirigirAGestionarVacantes() {
     this.router.navigate(['gestionar-vacantes'], { relativeTo: this.route });
   }
+  
+  redirigirAEditarPerfil() {
+    this.router.navigate(['perfil-postulante'], { relativeTo: this.route });
+  }
 
   redirigirRecomendacionIA() {
     this.router.navigate(['vacantes-recomendadas'], { relativeTo: this.route });
   }
+
+  redirigirBusquedaEmpleo() {
+    this.router.navigate(['vacantes-filtradas'], { relativeTo: this.route });
+  }
+
+  redirigirVacantesAplicadas() {
+    this.router.navigate(['vacantes-aplicadas'], { relativeTo: this.route });
+  }
 }
+
+

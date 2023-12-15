@@ -16,7 +16,7 @@
 
   } @else {
 
-    <section class="lista__opcion-card card-shadow">
+    <section class="lista__opcion-card card-shadow" (click)="redirigirAEditarPerfil()">
       <img
         class="lista__opcion-card__imagen"
         src="assets/images/panel-administrativo/editar-perfil.svg"
@@ -40,7 +40,7 @@
       />
       <span class="lista__opcion-card__titulo">Recomendacion IA</span>
     </section>
-    <section class="lista__opcion-card card-shadow">
+    <section class="lista__opcion-card card-shadow" (click)="redirigirBusquedaEmpleo()">
       <img
         class="lista__opcion-card__imagen"
         src="assets/images/panel-administrativo/reunion-personas.svg"
@@ -48,13 +48,13 @@
       />
       <span class="lista__opcion-card__titulo">Buscar empleo</span>
     </section>
-    <section class="lista__opcion-card card-shadow">
+    <section class="lista__opcion-card card-shadow" (click)="redirigirVacantesAplicadas()">
       <img
         class="lista__opcion-card__imagen"
         src="assets/images/panel-administrativo/lista-tareas.svg"
         alt="Vacantes aplicadas"
       />
-      <span class="lista__opcion-card__titulo">Vacantes aplicadas</span>
+      <span class="lista__opcion-card__titulo" >Vacantes aplicadas</span>
     </section>
 
   }
