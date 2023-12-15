@@ -1,0 +1,126 @@
+<section class=" bg-blue-500ray-50">
+    <div class="py-10  sm:py-16 block lg:py-24 relative bg-opacity-50  z-40 ">
+      <div
+        class="relative mx-auto h-full px-4 pb-10   md:pb-10 sm:max-w-xl md:max-w-full md:px-24 lg:max-w-screen-xl lg:px-8">
+        <div class="max-w-xl mx-auto text-center">
+          <div class="inline-flex px-4 py-1.5 mx-auto rounded-full  ">
+            <p class="text-4xl font-semibold tracking-widest text-g uppercase">Busqueda de vacantes por filtro</p>
+          </div>
+        </div>
+        <br>
+        <hr><br><br>
+        <form [formGroup]="form">
+          <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative">
+            <div class="flex flex-wrap">
+              <div class="w-full md:w-1/3 px-2 mb-6 md:mb-6">
+                <label for="titulo"><strong>Titulo</strong></label>
+                <input type="text" id="titulo" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                  formControlName="titulo" placeholder="Se busca. . ." />
+              </div>
+  
+              <div class="w-full md:w-1/3 px-2 mb-6 md:mb-6">
+                <label for="fecha_publicacion"><strong>Fecha de publicación</strong></label>
+                <input type="date" id="fecha_publicacion"
+                  class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                  formControlName="fecha_publicacion" />
+              </div>
+  
+              <div class="w-full md:w-1/3 px-2 mb-6 md:mb-6">
+                <label for="fecha_cierre"><strong>Fecha de cierre</strong></label>
+                <input type="date" id="fecha_cierre" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                  formControlName="fecha_cierre" />
+              </div>
+            </div>
+  
+            <div class="flex flex-wrap">
+              <div class="w-full md:w-1/3 px-2 mb-6 md:mb-6">
+                <label for="salario"><strong>Salario</strong></label>
+                <input type="number" id="salario" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                  formControlName="salario" placeholder="Ingrese el salario" step="0.01" />
+              </div>
+              <div class="w-full md:w-1/3 px-2 mb-6 md:mb-6">
+                <label for="remoto"><strong>Remoto</strong></label>
+                <select id="remoto" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                  formControlName="remoto">
+                  <option value="si">Si</option>
+                  <option value="no">No</option>
+                </select>
+              </div>
+              <div class="w-full md:w-1/3 px-2 mb-6 md:mb-6">
+                <label for="modalidad"><strong>Modalidad</strong></label>
+                <select id="modalidad" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                  formControlName="modalidad">
+                  <option value="Tipo completo">Tipo completo</option>
+                  <option value="Medio tiempo">Medio tiempo</option>
+                  <option value="Temporal">Temporal</option>
+                  <option value="Práctica">Práctica</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex flex-wrap">
+              <div class="w-full md:w-1/3 px-2 mb-6 md:mb-6">
+                <label for="area_trabajo"><strong>Área de trabajo</strong></label>
+                <select id="area_trabajo" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5"
+                  formControlName="area_trabajo">
+                  <option value="Recursos Humanos">Recursos Humanos</option>
+                  <option value="Tecnología">Tecnología</option>
+                  <option value="Medio Ambiente">Medio Ambiente</option>
+                  <option value="Comunicación">Comunicación</option>
+                  <option value="Redes">Redes</option>
+                  <option value="Industria">Industria</option>
+                  <option value="Diseño">Diseño</option>
+                  <option value="Finanzas">Finanzas</option>
+                  <option value="Administración">Administración</option>
+                  <option value="Ventas">Ventas</option>
+                </select>
+              </div>
+              <div class="w-full md:w-1/3 px-2 mb-6 md:mb-6">
+                <label for="annos_experiencia"><strong>Años de experiencia</strong></label>
+                <input type="number" id="annos_experiencia"
+                  class="border border-gray-300 text-sm rounded-lg block w-full p-2.5" formControlName="annos_experiencia"
+                  placeholder="Ingrese años de experiencia" step="0.01" />
+              </div>
+              <div class="w-full md:w-1/3 px-2 mb-6 md:mb-6">
+                <label for="ubicacion"><strong>Ubicación</strong></label>
+                <section style="display: flex; max-width: 500px; width: 100%; justify-content: space-between">
+                  <section style="width: 200px">
+                    <label for="estado">Estado</label>
+                    <select id="estado" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
+                      (change)="cargarCiudadesDelEstadoSeleccionado()" [(ngModel)]="estadoSeleccionado"
+                      [ngModelOptions]="{ standalone: true }">
+                      @for (estado of estados; track estado) {
+                      <option [value]="estado">{{ estado }}</option>
+                      }
+                    </select>
+                  </section>
+                  <section style="width: 200px">
+                    <label for="ciudad">Ciudad</label>
+                    <select id="ciudad" class="border border-gray-300 text-sm rounded-lg block w-full p-2.5 input"
+                      [(ngModel)]="ciudadSeleccionada" [ngModelOptions]="{ standalone: true }">
+                      @for (ciudad of ciudadesDelEstadoSeleccinado; track ciudad) {
+                      <option [value]="ciudad">{{ ciudad }}</option>
+                      }
+                    </select>
+                  </section>
+                </section>
+              </div>
+            </div>
+            <button type="button"
+                class="bg-primary font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-8 focus:outline-none"
+                style="color: white;" (click)="buscarVacante()">
+                Buscar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+  @if (vacantes_filtradas.length != 0) {
+    <main class="lista-vacantes">
+      @for (vacante of vacantes_filtradas; track vacante.titulo) {
+      <app-vacante-card [titulo]="vacante.titulo" [descripcion]="vacante.descripcion"/>
+      }
+    </main>
+    } @else {
+    <h2>No hay vacantes publicadas</h2>
+    }
