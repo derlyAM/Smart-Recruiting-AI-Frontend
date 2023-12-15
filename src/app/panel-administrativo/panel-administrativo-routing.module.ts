@@ -9,6 +9,7 @@ import { EditarVacanteComponent } from './editar-vacante/editar-vacante.componen
 import {PerfilPostulanteComponent} from './perfil-postulante/perfil-postulante.component';
 
 
+
 const routes: Routes = [
   {
     path: '',

@@ -1,0 +1,48 @@
+<div class="max-w-sm mx-auto">
+    <div class="mb-8">
+        <h1 class="text-4xl font-bold text-center">Crear cuenta</h1>
+    </div>
+    <form [formGroup]="register_form">
+        <div class="my-8 grid md:grid-cols-2 gap-4 sm:grid-cols-1">
+
+            <input type="text" id="base-input" placeholder="Nombres" formControlName="names"
+                class="bg-[#f8fafc] border border-[#a1a1aa] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+
+            <input type="text" id="base-input" placeholder="Apellidos" formControlName="surnames"
+                class="bg-[#f8fafc] border border-[#a1a1aa] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+
+        </div>
+        <div class="mb-8">
+            <input type="email" id="base-input" placeholder="Email" formControlName="correo"
+                class="bg-[#f8fafc] border border-[#a1a1aa] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        </div>
+        <div class="mb-8">
+            <input type="password" id="base-input" placeholder="********" formControlName="passwd"
+                class="bg-[#f8fafc] border border-[#a1a1aa] text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        </div>
+        <div>
+            <p>Rol</p>
+        </div>
+        <div class="flex justify-between">
+            <div class="flex items-center me-4">
+                <input id="inline-radio" type="radio" value="1" formControlName="rol"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                <label for="inline-radio"
+                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Reclutador</label>
+            </div>
+            <div class="flex items-center me-4">
+                <input id="inline-2-radio" type="radio" value="2" formControlName="rol"
+                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500">
+                <label for="inline-2-radio" class="ms-2 text-sm font-medium text-gray-900">Postulante</label>
+            </div>
+        </div>
+        <div class="grid justify-items-center mt-8">
+            <input type="button" (click)="registrarse()" value="Registrarse"
+                class="text-[#fafafa] bg-[#4787E4] hover:bg-[#4796e4] focus:ring-4 focus:outline-none focus:ring-[#4796e4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2" />
+        </div>
+    </form>
+    <div class="grid justify-items-center">
+        <input type="button" (click)="redirigirALogin()" value="o iniciar sesión"
+            class="text-[#4787E4] cursor-pointer" />
+    </div>
+</div>

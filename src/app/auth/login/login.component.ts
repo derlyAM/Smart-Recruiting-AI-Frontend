@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { LoginService } from './login.service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginDto } from './login.dtos';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { InfoUsuarioService } from '../../shared/services/info-usuario.service';
 import { TokenService } from './token.service';
 import { firstValueFrom } from 'rxjs';
@@ -18,6 +18,7 @@ export class LoginComponent {
   constructor(
     private loginService: LoginService,
     private router: Router,
+    private route: ActivatedRoute,
     private infoUsuario: InfoUsuarioService,
     private token: TokenService
   ) {}
@@ -29,6 +30,7 @@ export class LoginComponent {
 
   async iniciarSesion() {
     if (this.form.invalid) {
+      console.log("Invalido");
       return;
     }
 
@@ -39,6 +41,7 @@ export class LoginComponent {
 
     try {
       const token = await firstValueFrom(this.loginService.iniciarSesion(loginDto));
+    
       await this.accionesDeInicioDeSesion(token);
     } catch (error) {
       console.error(error);
@@ -49,5 +52,9 @@ export class LoginComponent {
     this.token.guardarToken(token);
     await this.infoUsuario.cargarInfoUsuario();
     this.router.navigate(['/panel-administrativo']);
+  }
+
+  redirigirARegistro() {
+    this.router.navigate(['/auth/register']);
   }
 }

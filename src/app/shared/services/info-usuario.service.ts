@@ -4,6 +4,8 @@ import { Observable, firstValueFrom } from 'rxjs';
 import { AlmacenamientoNavegadorService } from './almacenamiento-navegador.service';
 import { DatosUsuario } from '../dtos/usuario-dtos';
 import { RolUsuario } from '../enums/rol-usuario.enum';
+import { environment } from '../../../environments/environment.prod';
+
 
 @Injectable({
   providedIn: 'root',
@@ -15,12 +17,13 @@ export class InfoUsuarioService {
    * Trae del servidor la informacion asociada del usuario.
    */
   async cargarInfoUsuario() {
-    const infoUsuario = await firstValueFrom(this.http.get<DatosUsuario>('/usuario/'));
+    const infoUsuario = await firstValueFrom(this.http.get<DatosUsuario>('/usuario'));
     this.navegador.guardarItem({
       indice: 'infoUsuario',
       dato: infoUsuario,
       tipoDato: 'object',
     });
+    
   }
 
   obtenerInfoUsuario(): DatosUsuario {
